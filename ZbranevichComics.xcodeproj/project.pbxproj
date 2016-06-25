@@ -1,0 +1,456 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		92C2E7BD4554973A3F660720 /* Pods_ZbranevichComics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC26C3DFF2498D76DCD17AB3 /* Pods_ZbranevichComics.framework */; };
+		CE1683351D0EFA4D00979456 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1683341D0EFA4D00979456 /* AppDelegate.swift */; };
+		CE16833C1D0EFA4D00979456 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE16833B1D0EFA4D00979456 /* Assets.xcassets */; };
+		CE16833F1D0EFA4D00979456 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE16833D1D0EFA4D00979456 /* LaunchScreen.storyboard */; };
+		CE1683481D0EFB6200979456 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1683471D0EFB6200979456 /* ImageViewController.swift */; };
+		CE1F25FF1D12CA40006134DF /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1F25FE1D12CA40006134DF /* Page.swift */; };
+		CE2F72BD1D1E85F600E3BCDB /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F72BC1D1E85F600E3BCDB /* Media.swift */; };
+		CE3D44C71D16AD7A001A4B85 /* ComicsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D44C61D16AD7A001A4B85 /* ComicsCollectionViewController.swift */; };
+		CE3D44C91D16B2AA001A4B85 /* ComicsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D44C81D16B2AA001A4B85 /* ComicsCollectionViewCell.swift */; };
+		CE8383061D11E6690080090B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE8383051D11E6690080090B /* Main.storyboard */; };
+		CE9283F71D18373500284395 /* PagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9283F61D18373500284395 /* PagesViewController.swift */; };
+		CE9283FA1D18435700284395 /* PagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9283F91D18435700284395 /* PagesCollectionViewController.swift */; };
+		CE9283FE1D18637800284395 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9283FD1D18637800284395 /* Book.swift */; };
+		CE9284051D199AD400284395 /* Sample.m4v in Resources */ = {isa = PBXBuildFile; fileRef = CE9284041D199A9E00284395 /* Sample.m4v */; };
+		CED2BBFE1D0F3B43004F1273 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2BBFD1D0F3B43004F1273 /* SettingsViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CE8383411D12B6530080090B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6E36A719234A938CB984B5CA /* Pods-ZbranevichComics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZbranevichComics.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZbranevichComics/Pods-ZbranevichComics.release.xcconfig"; sourceTree = "<group>"; };
+		7EC7D09EAC29134105B098F6 /* Pods-ZbranevichComics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZbranevichComics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZbranevichComics/Pods-ZbranevichComics.debug.xcconfig"; sourceTree = "<group>"; };
+		CE1683341D0EFA4D00979456 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CE16833B1D0EFA4D00979456 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CE16833E1D0EFA4D00979456 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CE1683401D0EFA4D00979456 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE1683471D0EFB6200979456 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		CE1F25FE1D12CA40006134DF /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		CE2F72BC1D1E85F600E3BCDB /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		CE3D44C61D16AD7A001A4B85 /* ComicsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComicsCollectionViewController.swift; sourceTree = "<group>"; };
+		CE3D44C81D16B2AA001A4B85 /* ComicsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComicsCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE8383051D11E6690080090B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		CE9283F61D18373500284395 /* PagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagesViewController.swift; sourceTree = "<group>"; };
+		CE9283F91D18435700284395 /* PagesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagesCollectionViewController.swift; sourceTree = "<group>"; };
+		CE9283FD1D18637800284395 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		CE9284041D199A9E00284395 /* Sample.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sample.m4v; sourceTree = "<group>"; };
+		CEC05A9E1D12C48900A9C2AA /* ZbranevichComics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZbranevichComics.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CED2BBFD1D0F3B43004F1273 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		EC26C3DFF2498D76DCD17AB3 /* Pods_ZbranevichComics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZbranevichComics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CE16832E1D0EFA4D00979456 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92C2E7BD4554973A3F660720 /* Pods_ZbranevichComics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		244CDC6904785FF1BA92F1BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC26C3DFF2498D76DCD17AB3 /* Pods_ZbranevichComics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE1683281D0EFA4D00979456 = {
+			isa = PBXGroup;
+			children = (
+				CE1683331D0EFA4D00979456 /* ZbranevichComics */,
+				DE7394DC7B7C53CD28CE8FD6 /* Pods */,
+				244CDC6904785FF1BA92F1BE /* Frameworks */,
+				CEC05A9E1D12C48900A9C2AA /* ZbranevichComics.app */,
+			);
+			sourceTree = "<group>";
+		};
+		CE1683331D0EFA4D00979456 /* ZbranevichComics */ = {
+			isa = PBXGroup;
+			children = (
+				CE9284041D199A9E00284395 /* Sample.m4v */,
+				CE1683461D0EFA7700979456 /* Other */,
+				CE8383051D11E6690080090B /* Main.storyboard */,
+				CE9283FF1D1871D300284395 /* Add Page */,
+				CE9283F81D18431B00284395 /* Pages Collection */,
+				CE3D44CA1D16BF61001A4B85 /* Comics Collection */,
+				CE1F26021D12D87A006134DF /* Model */,
+			);
+			path = ZbranevichComics;
+			sourceTree = "<group>";
+		};
+		CE1683461D0EFA7700979456 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				CE1683401D0EFA4D00979456 /* Info.plist */,
+				CE16833B1D0EFA4D00979456 /* Assets.xcassets */,
+				CE16833D1D0EFA4D00979456 /* LaunchScreen.storyboard */,
+				CE1683341D0EFA4D00979456 /* AppDelegate.swift */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
+		CE1F26021D12D87A006134DF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CE1F25FE1D12CA40006134DF /* Page.swift */,
+				CE9283FD1D18637800284395 /* Book.swift */,
+				CE2F72BC1D1E85F600E3BCDB /* Media.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		CE3D44CA1D16BF61001A4B85 /* Comics Collection */ = {
+			isa = PBXGroup;
+			children = (
+				CE3D44C61D16AD7A001A4B85 /* ComicsCollectionViewController.swift */,
+				CE3D44C81D16B2AA001A4B85 /* ComicsCollectionViewCell.swift */,
+			);
+			name = "Comics Collection";
+			sourceTree = "<group>";
+		};
+		CE5662EB1D16E41A0053184E /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				CE9283F61D18373500284395 /* PagesViewController.swift */,
+			);
+			name = Pages;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		CE9283F81D18431B00284395 /* Pages Collection */ = {
+			isa = PBXGroup;
+			children = (
+				CE9283F91D18435700284395 /* PagesCollectionViewController.swift */,
+				CE5662EB1D16E41A0053184E /* Pages */,
+			);
+			name = "Pages Collection";
+			sourceTree = "<group>";
+		};
+		CE9283FF1D1871D300284395 /* Add Page */ = {
+			isa = PBXGroup;
+			children = (
+				CE1683471D0EFB6200979456 /* ImageViewController.swift */,
+				CED2BBFD1D0F3B43004F1273 /* SettingsViewController.swift */,
+			);
+			name = "Add Page";
+			sourceTree = "<group>";
+		};
+		DE7394DC7B7C53CD28CE8FD6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7EC7D09EAC29134105B098F6 /* Pods-ZbranevichComics.debug.xcconfig */,
+				6E36A719234A938CB984B5CA /* Pods-ZbranevichComics.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CE1683301D0EFA4D00979456 /* ZbranevichComics */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE1683431D0EFA4D00979456 /* Build configuration list for PBXNativeTarget "ZbranevichComics" */;
+			buildPhases = (
+				3AF1273C6AC049AB5D32C807 /* [CP] Check Pods Manifest.lock */,
+				CE16832D1D0EFA4D00979456 /* Sources */,
+				CE16832E1D0EFA4D00979456 /* Frameworks */,
+				CE16832F1D0EFA4D00979456 /* Resources */,
+				CE8383411D12B6530080090B /* Embed Frameworks */,
+				F54AA0F742D45C17DE30F6AD /* [CP] Embed Pods Frameworks */,
+				635492B0B22A2237FC8CED77 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZbranevichComics;
+			productName = ZbranevichComics;
+			productReference = CEC05A9E1D12C48900A9C2AA /* ZbranevichComics.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CE1683291D0EFA4D00979456 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = itransition;
+				TargetAttributes = {
+					CE1683301D0EFA4D00979456 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = CE16832C1D0EFA4D00979456 /* Build configuration list for PBXProject "ZbranevichComics" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CE1683281D0EFA4D00979456;
+			productRefGroup = CE1683281D0EFA4D00979456;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CE1683301D0EFA4D00979456 /* ZbranevichComics */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CE16832F1D0EFA4D00979456 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE9284051D199AD400284395 /* Sample.m4v in Resources */,
+				CE8383061D11E6690080090B /* Main.storyboard in Resources */,
+				CE16833F1D0EFA4D00979456 /* LaunchScreen.storyboard in Resources */,
+				CE16833C1D0EFA4D00979456 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3AF1273C6AC049AB5D32C807 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		635492B0B22A2237FC8CED77 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZbranevichComics/Pods-ZbranevichComics-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F54AA0F742D45C17DE30F6AD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZbranevichComics/Pods-ZbranevichComics-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CE16832D1D0EFA4D00979456 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE2F72BD1D1E85F600E3BCDB /* Media.swift in Sources */,
+				CE9283F71D18373500284395 /* PagesViewController.swift in Sources */,
+				CE3D44C71D16AD7A001A4B85 /* ComicsCollectionViewController.swift in Sources */,
+				CE1683481D0EFB6200979456 /* ImageViewController.swift in Sources */,
+				CE3D44C91D16B2AA001A4B85 /* ComicsCollectionViewCell.swift in Sources */,
+				CE1F25FF1D12CA40006134DF /* Page.swift in Sources */,
+				CE9283FE1D18637800284395 /* Book.swift in Sources */,
+				CE1683351D0EFA4D00979456 /* AppDelegate.swift in Sources */,
+				CE9283FA1D18435700284395 /* PagesCollectionViewController.swift in Sources */,
+				CED2BBFE1D0F3B43004F1273 /* SettingsViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CE16833D1D0EFA4D00979456 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CE16833E1D0EFA4D00979456 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CE1683411D0EFA4D00979456 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CE1683421D0EFA4D00979456 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CE1683441D0EFA4D00979456 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7EC7D09EAC29134105B098F6 /* Pods-ZbranevichComics.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ZbranevichComics/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mycomp.ZbranevichComics;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CE1683451D0EFA4D00979456 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E36A719234A938CB984B5CA /* Pods-ZbranevichComics.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ZbranevichComics/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mycomp.ZbranevichComics;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CE16832C1D0EFA4D00979456 /* Build configuration list for PBXProject "ZbranevichComics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE1683411D0EFA4D00979456 /* Debug */,
+				CE1683421D0EFA4D00979456 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE1683431D0EFA4D00979456 /* Build configuration list for PBXNativeTarget "ZbranevichComics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE1683441D0EFA4D00979456 /* Debug */,
+				CE1683451D0EFA4D00979456 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CE1683291D0EFA4D00979456 /* Project object */;
+}

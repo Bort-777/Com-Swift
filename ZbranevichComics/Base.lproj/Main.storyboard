@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Prs-XB-FFc">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Settings View Controller-->
+        <scene sceneID="IE8-FV-lOy">
+            <objects>
+                <viewController id="Prs-XB-FFc" customClass="SettingsViewController" customModule="ZbranevichComics" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ImZ-u3-YL7"/>
+                        <viewControllerLayoutGuide type="bottom" id="KZI-5Y-BDj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="10t-VP-Sxm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XYX-bi-YFD">
+                                <rect key="frame" x="240" y="255" width="120" height="90"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lSW-je-Gk9">
+                                        <rect key="frame" x="11" y="0.0" width="98" height="30"/>
+                                        <state key="normal" title="First Template"/>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="showDetail" action="showViewController:sender:" id="epf-tP-BcE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z2W-Lc-NrZ">
+                                        <rect key="frame" x="0.0" y="30" width="120" height="30"/>
+                                        <state key="normal" title="Second Template"/>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="showDetail" id="zP8-CP-KHm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="36m-SO-ZUW">
+                                        <rect key="frame" x="45" y="60" width="30" height="30"/>
+                                        <state key="normal" title="3"/>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="showDetail" action="showViewController:sender:" id="5AD-2H-IzI"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="XYX-bi-YFD" firstAttribute="centerY" secondItem="10t-VP-Sxm" secondAttribute="centerY" id="6Fb-Rp-4hK"/>
+                            <constraint firstItem="XYX-bi-YFD" firstAttribute="centerX" secondItem="10t-VP-Sxm" secondAttribute="centerX" id="HDy-g1-OQE"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="FirstButtom" destination="lSW-je-Gk9" id="LyF-RU-8nk"/>
+                        <outlet property="SecondButtom" destination="z2W-Lc-NrZ" id="XlU-O7-UAu"/>
+                        <outlet property="ThButtom" destination="36m-SO-ZUW" id="z88-L8-j8l"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fXB-vP-mzI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="47" y="-117"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ImageViewController" customModule="ZbranevichComics" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wKs-Kc-B4c">
+                                <rect key="frame" x="0.0" y="285" width="34" height="30"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <segue destination="Prs-XB-FFc" kind="show" id="9gI-1f-P9r"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NYB-W9-6a6">
+                                <rect key="frame" x="84" y="144" width="343" height="232"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZYR-QJ-lfM">
+                                        <rect key="frame" x="28" y="16" width="287" height="199"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="templateContainer" destination="NYB-W9-6a6" id="UgU-H5-i7T"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="939" y="-127"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="zP8-CP-KHm"/>
+    </inferredMetricsTieBreakers>
+</document>
