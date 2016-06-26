@@ -10,7 +10,7 @@ import UIKit
 import MobileCoreServices
 
 
-class ChouseViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ChouseViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
     
@@ -38,17 +38,13 @@ class ChouseViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     var selctedImage: UIImage!
     
     
-    // message label
-    @IBOutlet var messageLabel: UILabel!
-    
-    
     // filter Title and Name list
     var filterTitleList: [String]!
     var filterNameList: [String]!
     
     
     // filter selection picker
-    @IBOutlet var filterPicker: UIPickerView!
+    @IBOutlet var filterCollection: UICollectionView!
     
     
     
@@ -67,14 +63,14 @@ class ChouseViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         self.filterNameList = ["No Filter" ,"CIPhotoEffectChrome", "CIPhotoEffectFade", "CIPhotoEffectInstant", "CIPhotoEffectMono", "CIPhotoEffectNoir", "CIPhotoEffectProcess", "CIPhotoEffectTonal", "CIPhotoEffectTransfer"]
         
         // set delegate for filter picker
-        self.filterPicker.delegate = self
-        self.filterPicker.dataSource = self
+        self.filterCollection.delegate = self
+        self.filterCollection.dataSource = self
         
         // disable filter pickerView
-        self.filterPicker.userInteractionEnabled = true
+        self.filterCollection.userInteractionEnabled = true
         
         // show message label
-        self.messageLabel.hidden = true
+
         
         // disable save button
         self.saveButton.enabled = false
@@ -108,33 +104,42 @@ class ChouseViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     // MARK: - picker view delegate and data source (to choose filter name)
     
     // how many component (i.e. column) to be displayed within picker view
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    // How many rows are there is each component
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
         return self.filterTitleList.count
     }
     
     // title/content for row in given component
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.filterTitleList[row]
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
+        
+        cell.backgroundColor = UIColor.blueColor()
+        let tmp = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.width))
+        //tmp.image = self.applyFilter(selectedFilterIndex: indexPath.row)
+        tmp.image = selctedImage
+
+        cell.addSubview(tmp)
+
+        return cell
     }
     
+
+    
     // called when row selected from any component within picker view
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+        {
         
         // disable save button if filter not selected.
         // enable save button if filter selected.
-        if row == 0 {
+        if indexPath.row == 0 {
             self.saveButton.enabled = false
         }else{
             self.saveButton.enabled = true
         }
         
         // call funtion to apply the selected filter
-        self.applyFilter(selectedFilterIndex: row)
+        self.previewImageView.image = self.applyFilter(selectedFilterIndex: indexPath.row)
     }
     
     
@@ -149,7 +154,7 @@ class ChouseViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     // apply filter to current image
-    private func applyFilter(selectedFilterIndex filterIndex: Int) {
+    private func applyFilter(selectedFilterIndex filterIndex: Int) -> UIImage {
         
         //print("Filter - \(self.filterNameList[filterIndex)")
         
@@ -162,8 +167,7 @@ class ChouseViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         // if No filter selected then apply default image and return.
         if filterIndex == 0 {
             // set image selected image
-            self.previewImageView.image = self.selctedImage
-            return
+            return self.selctedImage
         }
         
         
@@ -188,7 +192,7 @@ class ChouseViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         let filteredImage = UIImage(CGImage: outputCGImage)
         
         // 7 - set filtered image to preview
-        self.previewImageView.image = filteredImage
+        return filteredImage
     }
     
     

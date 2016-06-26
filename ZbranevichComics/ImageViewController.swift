@@ -22,7 +22,8 @@ import MobileCoreServices
 import UIKit
 import AVFoundation
 
-class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate
+class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
+    UICollectionViewDataSource, UICollectionViewDelegate
 {
     
     //MARK: - Other
@@ -32,6 +33,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
     var media = [String]()
 
     var templateContainer: UIView!
+    @IBOutlet weak var cloudCollection: UICollectionView!
     
     @IBOutlet weak var mainView: UIView!
     
@@ -40,20 +42,66 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
         imagePicker.delegate = self
         
         
+        
+        
     }
     
     override func viewDidAppear(animated: Bool) {
+        self.cloudCollection.delegate = self
+        self.cloudCollection.dataSource = self
+        
         if load == false {
             imagePicker.delegate = self
-            
             createTemplateView()
             for viewPart in imageSet {
                 createScrollView(viewPart)
-
-
             }
             load = true
         }
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return 10
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
+        
+        cell.backgroundColor = UIColor.blueColor()
+        
+        
+        
+        return cell
+        
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        let tmp = Cloud(frame: CGRect(x: 0, y: 0, width: 200.0, height: 200.0))
+        tmp.textF.text = "hello"
+        //tmp.backgroundColor = UIColor.blueColor()
+
+        
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageViewController.panGestureDetected(_:)))
+        panGestureRecognizer.minimumNumberOfTouches = 1
+        tmp.addGestureRecognizer(panGestureRecognizer)
+        templateContainer.addSubview(tmp)
+    }
+    
+    func panGestureDetected(sender: UIPanGestureRecognizer) {
+        let translation = sender.translationInView(self.templateContainer)
+        
+        let newPoint = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
+        if self.templateContainer.pointInside(newPoint, withEvent: nil) {
+            sender.view!.center = newPoint
+        }
+        else {
+            sender.view?.removeFromSuperview()
+        }
+        
+        sender.setTranslation(CGPointZero, inView: self.templateContainer)
     }
     
     func createTemplateView() {
@@ -208,6 +256,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
 // MARK: - UIImagePickerControllerDelegate Method
     
     var currPicker = UIScrollView()
+    private var curreImage = UIImage()
     let imagePicker = UIImagePickerController()
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
@@ -225,8 +274,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
             }
             else {
                 // if image selected the set in preview.
-                if let newImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-                    self.callbackImage(newImage)
+                if let newImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                    self.curreImage = newImage
                     self.performSegueWithIdentifier("chouseImage", sender: self)
                 }
             }
@@ -273,7 +322,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
             imagePicker.mediaTypes = ["public.image", "public.movie"]
-            imagePicker.allowsEditing = true
+            imagePicker.allowsEditing = false
             
             
             // show image picker
@@ -290,8 +339,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
         if segue.identifier == "chouseImage"
         {
             let vc = segue.destinationViewController as! ChouseViewController
-            let imageView = currPicker.subviews.first! as! UIImageView
-            vc.selctedImage = imageView.image
+            vc.selctedImage = curreImage
         }
     }
 

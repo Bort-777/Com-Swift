@@ -27,7 +27,7 @@ class ComicsCollectionViewController: UIViewController, UICollectionViewDataSour
     }
     
     func readBooksAndUpdateUI() {
-        books = uiRealm.objects(Book)
+        books = uiRealm.objects(Book).sorted("id")
         self.collectionView.reloadData()
     }
     
