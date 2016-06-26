@@ -195,7 +195,6 @@ class PagesCollectionViewCell: UICollectionViewCell
         let imageName = String(id)
         let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
         let readPath = "\(pathDocuments)/\(imageName).jpg"
-        print(readPath)
         let image    = UIImage(contentsOfFile: readPath)
         // Do whatever you want with the image
         return image

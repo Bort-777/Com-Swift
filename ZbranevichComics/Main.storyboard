@@ -114,6 +114,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mainView" destination="kL3-bq-L2p" id="7ae-bY-HdU"/>
+                        <segue destination="W9z-7e-Dtd" kind="show" identifier="chouseImage" id="K5J-Wp-xac"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -233,7 +234,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k1n-sP-iH8" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="758" y="244"/>
+            <point key="canvasLocation" x="698" y="603"/>
         </scene>
         <!--Pages View Controller-->
         <scene sceneID="Ms7-AV-OpY">
@@ -363,9 +364,79 @@
             </objects>
             <point key="canvasLocation" x="-43" y="603"/>
         </scene>
+        <!--Core Image Filter-->
+        <scene sceneID="btr-o8-XrF">
+            <objects>
+                <viewController id="W9z-7e-Dtd" customClass="ChouseViewController" customModule="ZbranevichComics" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EOM-mD-D8Q"/>
+                        <viewControllerLayoutGuide type="bottom" id="BNV-9J-8jt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="p8T-Xd-E0K">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cGD-bM-jJh">
+                                <rect key="frame" x="10" y="74" width="580" height="354"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="354" id="LNJ-Sf-WFt"/>
+                                </constraints>
+                            </imageView>
+                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s33-jb-AiE">
+                                <rect key="frame" x="0.0" y="467" width="600" height="133"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="133" id="Me1-CJ-y14"/>
+                                </constraints>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Select image, use Camera button." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPT-PV-CtQ">
+                                <rect key="frame" x="10" y="436" width="580" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fPT-PV-CtQ" firstAttribute="top" secondItem="cGD-bM-jJh" secondAttribute="bottom" constant="8" symbolic="YES" id="1IM-kg-UlC"/>
+                            <constraint firstItem="cGD-bM-jJh" firstAttribute="top" secondItem="EOM-mD-D8Q" secondAttribute="bottom" constant="10" id="Cj5-Qh-SFQ"/>
+                            <constraint firstItem="fPT-PV-CtQ" firstAttribute="leading" secondItem="cGD-bM-jJh" secondAttribute="leading" id="KNu-JP-irw"/>
+                            <constraint firstAttribute="trailing" secondItem="s33-jb-AiE" secondAttribute="trailing" id="MbA-91-S0c"/>
+                            <constraint firstItem="fPT-PV-CtQ" firstAttribute="trailing" secondItem="cGD-bM-jJh" secondAttribute="trailing" id="SWd-S3-qJX"/>
+                            <constraint firstItem="cGD-bM-jJh" firstAttribute="leading" secondItem="p8T-Xd-E0K" secondAttribute="leadingMargin" constant="-10" id="aFM-j4-SZB"/>
+                            <constraint firstItem="s33-jb-AiE" firstAttribute="bottom" secondItem="BNV-9J-8jt" secondAttribute="top" id="fFM-gi-UJN"/>
+                            <constraint firstItem="fPT-PV-CtQ" firstAttribute="centerX" secondItem="s33-jb-AiE" secondAttribute="centerX" id="fFg-9q-K75"/>
+                            <constraint firstItem="s33-jb-AiE" firstAttribute="top" secondItem="fPT-PV-CtQ" secondAttribute="bottom" constant="1" id="nZT-Oz-wtY"/>
+                            <constraint firstItem="s33-jb-AiE" firstAttribute="leading" secondItem="p8T-Xd-E0K" secondAttribute="leading" id="zQz-y7-Vfi"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Core Image Filter" id="HFC-og-QTg">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="g8d-Wv-mIM">
+                            <connections>
+                                <action selector="cancelButtonAction:" destination="W9z-7e-Dtd" id="zbk-KB-y5R"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Qv7-FG-I2Q">
+                            <connections>
+                                <action selector="saveButtonAction:" destination="W9z-7e-Dtd" id="fTf-V8-uHp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cancelButton" destination="g8d-Wv-mIM" id="kra-4O-EbD"/>
+                        <outlet property="filterPicker" destination="s33-jb-AiE" id="XnR-2V-xQ3"/>
+                        <outlet property="messageLabel" destination="fPT-PV-CtQ" id="5bs-tA-ZEb"/>
+                        <outlet property="previewImageView" destination="cGD-bM-jJh" id="oU9-2O-Qaq"/>
+                        <outlet property="saveButton" destination="Qv7-FG-I2Q" id="gge-k5-T1u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CVy-su-cqp" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2886" y="-204"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="gYQ-Ob-8Dq"/>
-        <segue reference="Pzq-ih-1Cx"/>
+        <segue reference="x3Y-Xd-x4f"/>
     </inferredMetricsTieBreakers>
 </document>

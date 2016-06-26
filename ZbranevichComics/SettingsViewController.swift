@@ -28,7 +28,7 @@ class SettingsViewController: UIViewController {
             ivc.comics = currentBook
             switch imageName {
             case first?:
-                
+                title = "sdfds"
                 ivc.imageSet.append(MyFrame(
                     URLname: "https://yastatic.net/disk/_/ZQnEdptjmA6XjGYMvsuKMV9E_yI.jpg",
                     x: 0,

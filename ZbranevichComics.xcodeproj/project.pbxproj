@@ -21,6 +21,7 @@
 		CE9283FA1D18435700284395 /* PagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9283F91D18435700284395 /* PagesCollectionViewController.swift */; };
 		CE9283FE1D18637800284395 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9283FD1D18637800284395 /* Book.swift */; };
 		CE9284051D199AD400284395 /* Sample.m4v in Resources */ = {isa = PBXBuildFile; fileRef = CE9284041D199A9E00284395 /* Sample.m4v */; };
+		CEC963A01D1FE51B007E5A3B /* ChouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9639F1D1FE51B007E5A3B /* ChouseViewController.swift */; };
 		CED2BBFE1D0F3B43004F1273 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2BBFD1D0F3B43004F1273 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		CE9283FD1D18637800284395 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		CE9284041D199A9E00284395 /* Sample.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sample.m4v; sourceTree = "<group>"; };
 		CEC05A9E1D12C48900A9C2AA /* ZbranevichComics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZbranevichComics.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEC9639F1D1FE51B007E5A3B /* ChouseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChouseViewController.swift; sourceTree = "<group>"; };
 		CED2BBFD1D0F3B43004F1273 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		EC26C3DFF2498D76DCD17AB3 /* Pods_ZbranevichComics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZbranevichComics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -156,6 +158,7 @@
 			children = (
 				CE1683471D0EFB6200979456 /* ImageViewController.swift */,
 				CED2BBFD1D0F3B43004F1273 /* SettingsViewController.swift */,
+				CEC9639F1D1FE51B007E5A3B /* ChouseViewController.swift */,
 			);
 			name = "Add Page";
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				CE9283F71D18373500284395 /* PagesViewController.swift in Sources */,
 				CE3D44C71D16AD7A001A4B85 /* ComicsCollectionViewController.swift in Sources */,
 				CE1683481D0EFB6200979456 /* ImageViewController.swift in Sources */,
+				CEC963A01D1FE51B007E5A3B /* ChouseViewController.swift in Sources */,
 				CE3D44C91D16B2AA001A4B85 /* ComicsCollectionViewCell.swift in Sources */,
 				CE1F25FF1D12CA40006134DF /* Page.swift in Sources */,
 				CE9283FE1D18637800284395 /* Book.swift in Sources */,

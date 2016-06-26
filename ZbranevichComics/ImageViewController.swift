@@ -211,23 +211,36 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
     let imagePicker = UIImagePickerController()
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-
+        
+        // dismiss image picker controller
+        
         let mediaType = info[UIImagePickerControllerMediaType] as! NSString
         
         dismissViewControllerAnimated(true) {
             // 3
             if mediaType == kUTTypeMovie {
                 let contentURL = info[UIImagePickerControllerMediaURL] as! NSURL
-                self.insertVideo(self.currPicker, videoURL: contentURL)
+                self.callbackVideo(contentURL)
                 
             }
             else {
-                if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-                    self.insertImage(self.currPicker, image: pickedImage)
+                // if image selected the set in preview.
+                if let newImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+                    self.callbackImage(newImage)
+                    self.performSegueWithIdentifier("chouseImage", sender: self)
                 }
             }
         }
     }
+    
+    func callbackImage(img: UIImage) {
+        self.insertImage(currPicker, image: img)
+    }
+    
+    func callbackVideo(URL: NSURL) {
+        self.insertVideo(self.currPicker, videoURL: URL)
+    }
+
     
     func imageTapped(img: UITapGestureRecognizer)
     {
@@ -235,12 +248,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in }
         let photoAction = UIAlertAction(title: "Library", style: .Default) { (action) in
             self.currPicker = (img.view as! UIImageView).superview as! UIScrollView
-            self.imagePicker.allowsEditing = false
-            self.imagePicker.mediaTypes = ["public.image", "public.movie"]
-            self.imagePicker.allowsEditing = true
-            self.imagePicker.sourceType = .SavedPhotosAlbum
-
-            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            self.showPhotoGallery()
         }
 
         alertController.addAction(photoAction)
@@ -249,6 +257,43 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
+    // Show photo gallery to choose image
+    private func showPhotoGallery() -> Void {
+        
+        // debug
+        print("Choose - Photo Gallery")
+        
+        // show picker to select image form gallery
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum) {
+            
+            // create image picker
+            let imagePicker = UIImagePickerController()
+            
+            // set image picker property
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
+            imagePicker.mediaTypes = ["public.image", "public.movie"]
+            imagePicker.allowsEditing = true
+            
+            
+            // show image picker
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+            
+        }else{
+            self.showAlertMessage(alertTitle: "Not Supported", alertMessage: "Device can not access gallery.")
+        }
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if segue.identifier == "chouseImage"
+        {
+            let vc = segue.destinationViewController as! ChouseViewController
+            let imageView = currPicker.subviews.first! as! UIImageView
+            vc.selctedImage = imageView.image
+        }
+    }
 
     
     //MARK: - Realm
@@ -301,9 +346,25 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
             comics.page.append(page)
         
         }
+        
+     
         navigationController?.popToRootViewControllerAnimated(true)
     }
+    
+    func showAlertMessage(alertTitle alertTitle: String, alertMessage: String) {
+        
+        let myAlertVC = UIAlertController( title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        
+        myAlertVC.addAction(okAction)
+        
+        self.presentViewController(myAlertVC, animated: true, completion: nil)
+    }
 }
+
+
+
 
 extension UIView {
     func saveImageFromView(path path:String) {
