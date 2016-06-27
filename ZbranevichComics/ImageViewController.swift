@@ -30,7 +30,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
     
     var load = false
     var imageSet = [MyFrame]()
-    var media = [String]()
+    var media = [NSURL]()
 
     var templateContainer: UIView!
     @IBOutlet weak var cloudCollection: UICollectionView!
@@ -206,7 +206,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
         centerScrollViewContents(scrollView, imageView: imageView)
         
         if scrollView.tag == 0 {
-            media.append("i")
+            media.append(NSURL())
             scrollView.tag = media.count
         }
         
@@ -217,7 +217,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
     {
         let imageView = scrollView.subviews.first as! UIImageView
         var uiImage = UIImage()
-        var error: NSError? = nil
         do {
             let asset = AVURLAsset(URL: videoURL, options: nil)
             let imgGenerator = AVAssetImageGenerator(asset: asset)
@@ -242,7 +241,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
         scrollView.zoomScale = 1
         
         
-        media[scrollView.tag - 1] = videoURL.absoluteString
+        media[scrollView.tag - 1] = videoURL
         
         
 }
@@ -288,6 +287,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
     
     func callbackVideo(URL: NSURL) {
         self.insertVideo(self.currPicker, videoURL: URL)
+        
     }
 
     
@@ -309,10 +309,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
     // Show photo gallery to choose image
     private func showPhotoGallery() -> Void {
         
-        // debug
-        print("Choose - Photo Gallery")
-        
-        // show picker to select image form gallery
+         // show picker to select image form gallery
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum) {
             
             // create image picker
@@ -366,6 +363,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
             page.id = Int(arc4random_uniform(600)+1)
         
             let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
+            print(pathDocuments)
             let pathImage = "\(pathDocuments)/\(page.id).jpg"
         
             templateContainer.saveImageFromView(path: pathImage)
@@ -375,12 +373,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
             {
                 if let scroll = subScrolls as? UIScrollView
                 {
-                    if media[scroll.tag - 1] != "i"
+                    if media[scroll.tag - 1].absoluteString != ""
                     {
-                        print("video: ")
                         let video = Media()
                         video.setFrame(scroll.frame)
-                        video.setLocalURL(media[scroll.tag - 1])
+                        video.setLocalURL(saveLocalVideo(media[scroll.tag - 1]))
                         page.data.append(video)
                     }
                     else {
@@ -397,6 +394,17 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
         
      
         navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
+    func saveLocalVideo (localPatch: NSURL) -> String {
+
+        let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
+        let pathVideo = "\(pathDocuments)/\(page.id).MOV"
+        let videoData = NSData(contentsOfURL: localPatch)
+        
+        videoData?.writeToFile(pathVideo, atomically: false)
+        print(pathVideo)
+        return pathVideo
     }
     
     func showAlertMessage(alertTitle alertTitle: String, alertMessage: String) {

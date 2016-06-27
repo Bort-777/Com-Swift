@@ -130,15 +130,20 @@ class FrameViewController: UIViewController {
         if firstAppear {
             for video in currentPage!.data
             {
-                //print(image.frame.minY)
-                let x = CGFloat(video.x) + imageView.frame.minX
-                let y = CGFloat(video.y) + imageView.frame.minY
+                let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
+                let pathVideo = "\(pathDocuments)/\(currentPage!.id).MOV"
+                print(pathVideo)
+
+
+                let x = CGFloat(video.x) + template.frame.minX
+                let y = CGFloat(video.y) + template.frame.minY
                 let h = CGFloat(video.height)
                 let w = CGFloat(video.width)
-                playVideo(CGRect(x: x, y: y, width: h, height: w), path: video.URL)
+                print(h)
+                playVideo(CGRect(x: x, y: y, width: w, height: h), path: pathVideo)
 
             }
-            firstAppear = false
+            //firstAppear = false
         }
     }
     
@@ -190,7 +195,7 @@ class FrameViewController: UIViewController {
         playerController.view.frame = frame
         self.addChildViewController(playerController)
         self.view.addSubview(playerController.view)
-        player.play()
+        //player.play()
         
     }
 }
