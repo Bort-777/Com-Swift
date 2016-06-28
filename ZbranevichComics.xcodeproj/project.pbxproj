@@ -21,6 +21,7 @@
 		CE9283FA1D18435700284395 /* PagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9283F91D18435700284395 /* PagesCollectionViewController.swift */; };
 		CE9283FE1D18637800284395 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9283FD1D18637800284395 /* Book.swift */; };
 		CE9284051D199AD400284395 /* Sample.m4v in Resources */ = {isa = PBXBuildFile; fileRef = CE9284041D199A9E00284395 /* Sample.m4v */; };
+		CEA9DD641D22F87E00D795F4 /* Template.json in Resources */ = {isa = PBXBuildFile; fileRef = CEA9DD631D22F87E00D795F4 /* Template.json */; };
 		CEC963A01D1FE51B007E5A3B /* ChouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9639F1D1FE51B007E5A3B /* ChouseViewController.swift */; };
 		CEC963A21D202364007E5A3B /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC963A11D202364007E5A3B /* Cloud.swift */; };
 		CED2BBFE1D0F3B43004F1273 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2BBFD1D0F3B43004F1273 /* SettingsViewController.swift */; };
@@ -56,6 +57,7 @@
 		CE9283F91D18435700284395 /* PagesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagesCollectionViewController.swift; sourceTree = "<group>"; };
 		CE9283FD1D18637800284395 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		CE9284041D199A9E00284395 /* Sample.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sample.m4v; sourceTree = "<group>"; };
+		CEA9DD631D22F87E00D795F4 /* Template.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Template.json; sourceTree = "<group>"; };
 		CEC05A9E1D12C48900A9C2AA /* ZbranevichComics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZbranevichComics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC9639F1D1FE51B007E5A3B /* ChouseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChouseViewController.swift; sourceTree = "<group>"; };
 		CEC963A11D202364007E5A3B /* Cloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cloud.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				CE9284041D199A9E00284395 /* Sample.m4v */,
+				CEA9DD631D22F87E00D795F4 /* Template.json */,
 				CE1683461D0EFA7700979456 /* Other */,
 				CE8383051D11E6690080090B /* Main.storyboard */,
 				CE9283FF1D1871D300284395 /* Add Page */,
@@ -241,6 +244,7 @@
 				CE8383061D11E6690080090B /* Main.storyboard in Resources */,
 				CE16833F1D0EFA4D00979456 /* LaunchScreen.storyboard in Resources */,
 				CE16833C1D0EFA4D00979456 /* Assets.xcassets in Resources */,
+				CEA9DD641D22F87E00D795F4 /* Template.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

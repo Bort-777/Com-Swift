@@ -1,0 +1,34 @@
+{
+    "template": [
+    {
+        "URLname": "John",
+        "x": 25,
+        "y": 0,
+        "width": 0.5,
+        "heigth": 0.5
+    },
+    {
+        "URLname": "Mark",
+        "x": 29,
+        "y": 0,
+        "width": 0.5,
+        "heigth": 0.5
+    },
+    {
+        "URLname": "Sarah",
+        "x": 22,
+        "y": 0,
+        "width": 0.5,
+        "heigth": 0.5
+    },
+    {
+        "URLname": "Sarah",
+        "x": 22,
+        "y": 0,
+        "width": 0.5,
+        "heigth": 0.5
+    }
+    ],
+    "dataTitle": "JSON Tutorial!",
+    "swiftVersion": 2.1
+}

@@ -12,7 +12,6 @@ struct MyFrame {
     var y : CGFloat
     var width : CGFloat
     var heigth : CGFloat
-    var vidoe = false
 }
 
 
@@ -74,7 +73,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
     {
         let tmp = Cloud(frame: CGRect(x: 0, y: 0, width: 200.0, height: 200.0))
         tmp.textF.text = "hello"
-        //tmp.backgroundColor = UIColor.blueColor()
 
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageViewController.panGestureDetected(_:)))
