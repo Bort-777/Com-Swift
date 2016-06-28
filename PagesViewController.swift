@@ -14,19 +14,41 @@ import AVFoundation
 class PagesViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     var currentBook = Book()
+    let frameViewController = FrameViewController()
+    var fullScreen = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         dataSource = self
-            
-        view.backgroundColor = UIColor.whiteColor()
-            
-        let frameViewController = FrameViewController()
-        frameViewController.currentPage = currentBook.page[0]
-            
+        
+        view.backgroundColor = UIColor.blackColor()
+        navigationController?.navigationBar.hidden = true // for navigation bar show
+        UIApplication.sharedApplication().statusBarHidden = true; // for status bar show
+
         let viewControllers = [frameViewController]
         setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PagesViewController.tapGestureDetected(_:)))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tapGestureRecognizer)
+
+    }
+    
+    func tapGestureDetected(sender: UITapGestureRecognizer) {
+        if fullScreen {
+            view.backgroundColor = UIColor.whiteColor()
+            navigationController?.navigationBar.hidden = false // for navigation bar hide
+            UIApplication.sharedApplication().statusBarHidden = false; // for status bar hide
+            fullScreen = false
+        } else {
+            view.backgroundColor = UIColor.blackColor()
+            navigationController?.navigationBar.hidden = true // for navigation bar show
+            UIApplication.sharedApplication().statusBarHidden = true; // for status bar show
+            fullScreen = true
+        }
+       
+
     }
     
         
@@ -39,6 +61,12 @@ class PagesViewController: UIPageViewController, UIPageViewControllerDataSource 
         if currentIndex < currentBook.page.count - 1 {
             let frameViewController = FrameViewController()
             frameViewController.currentPage = currentBook.page[currentIndex! + 1]
+            if fullScreen {
+                frameViewController.activityIndicatorView.activityIndicatorViewStyle = .WhiteLarge
+            } else {
+                frameViewController.activityIndicatorView.activityIndicatorViewStyle = .Gray
+            }
+
             return frameViewController
         }
         
@@ -54,6 +82,11 @@ class PagesViewController: UIPageViewController, UIPageViewControllerDataSource 
         if currentIndex > 0 {
             let frameViewController = FrameViewController()
             frameViewController.currentPage = currentBook.page[currentIndex! - 1]
+            if fullScreen {
+                frameViewController.activityIndicatorView.activityIndicatorViewStyle = .WhiteLarge
+            } else {
+                frameViewController.activityIndicatorView.activityIndicatorViewStyle = .Gray
+            }
             return frameViewController
         }
         
@@ -61,10 +94,12 @@ class PagesViewController: UIPageViewController, UIPageViewControllerDataSource 
     }
     
     func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return 2
+        return currentBook.page.count
     }
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return 1
+        let currentImageName = frameViewController.currentPage
+        let currentIndex = currentBook.page.indexOf(currentImageName!)
+        return currentIndex!
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -89,17 +124,21 @@ class FrameViewController: UIViewController {
         }
     }
     private var firstAppear = true
-    var template = UIImageView()
+    var template = UIView()
+    
+    var activityIndicatorView: UIActivityIndicatorView {
+        let activityIndicatorView = UIActivityIndicatorView()
+        activityIndicatorView.center = view.center
+        self.view.addSubview(activityIndicatorView)
+        return activityIndicatorView
+    }
 
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        activityIndicatorView.center = view.center
-        self.view.addSubview(activityIndicatorView)
         activityIndicatorView.startAnimating()
-       
+        
     }
 
     
@@ -108,11 +147,9 @@ class FrameViewController: UIViewController {
         
         let rect = templatePosition()
 
-        template = UIImageView(frame: rect)
+        template = UIView(frame: rect)
         
         template.addSubview(imageView)
-        //navigationController?.navigationBar.hidden = true // for navigation bar hide
-        //UIApplication.sharedApplication().statusBarHidden=true; // for status bar hide
         
         template.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v0]|", options:
             NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
@@ -125,25 +162,16 @@ class FrameViewController: UIViewController {
 
         
         view.addSubview(template)
-        
-        
-        if firstAppear {
-            for video in currentPage!.data
-            {
-                let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
-                let pathVideo = "\(pathDocuments)/\(currentPage!.id).MOV"
-                print(pathVideo)
 
-
-                let x = CGFloat(video.x) + template.frame.minX
-                let y = CGFloat(video.y) + template.frame.minY
-                let h = CGFloat(video.height)
-                let w = CGFloat(video.width)
-                print(h)
-                playVideo(CGRect(x: x, y: y, width: w, height: h), path: pathVideo)
-
-            }
-            //firstAppear = false
+        for video in currentPage!.data
+        {
+            let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
+            let pathVideo = "\(pathDocuments)/\(video.id).MOV"
+            let x = CGFloat(video.x) //+ template.frame.minX
+            let y = CGFloat(video.y) //+ template.frame.minY
+            let h = CGFloat(video.height)
+            let w = CGFloat(video.width)
+            playVideo(CGRect(x: x, y: y, width: w, height: h), path: pathVideo)
         }
     }
     
@@ -154,15 +182,15 @@ class FrameViewController: UIViewController {
     func templatePosition() -> CGRect {
         if UIDevice.currentDevice().orientation.isPortrait.boolValue {
             let x = CGFloat(0)
-            let y = view.bounds.midY - view.bounds.midX
-            let size = view.bounds.size.width
+            let y = view.frame.midY - view.frame.midX
+            let size = view.frame.size.width
             
             return CGRect(x: x, y: y, width: size, height: size)
         }
         else {
-            let x = view.bounds.midX - view.bounds.midY
+            let x = view.frame.midX - view.frame.midY
             let y = CGFloat(0)
-            let size = view.bounds.size.height
+            let size = view.frame.size.height
             
             return CGRect(x: x, y: y, width: size, height: size)
         }
@@ -184,17 +212,13 @@ class FrameViewController: UIViewController {
     }
     
     private func playVideo(frame: CGRect, path: String) {
-        print(frame)
-
-        
         let player = AVPlayer(URL: NSURL(fileURLWithPath: path))
         let playerController = AVPlayerViewController()
+        
         playerController.player = player
-        
-        
         playerController.view.frame = frame
         self.addChildViewController(playerController)
-        self.view.addSubview(playerController.view)
+        self.template.addSubview(playerController.view)
         //player.play()
         
     }

@@ -40,10 +40,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
-        
-        
-        
-        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -70,9 +66,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
         
         cell.backgroundColor = UIColor.blueColor()
-        
-        
-        
         return cell
         
     }
@@ -396,15 +389,15 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
         navigationController?.popToRootViewControllerAnimated(true)
     }
     
-    func saveLocalVideo (localPatch: NSURL) -> String {
-
+    func saveLocalVideo (localPatch: NSURL) -> Int {
+        let videoID =  Int(arc4random_uniform(600)+1)
         let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
-        let pathVideo = "\(pathDocuments)/\(page.id).MOV"
+        let pathVideo = "\(pathDocuments)/\(videoID).MOV"
         let videoData = NSData(contentsOfURL: localPatch)
         
         videoData?.writeToFile(pathVideo, atomically: false)
         print(pathVideo)
-        return pathVideo
+        return videoID
     }
     
     func showAlertMessage(alertTitle alertTitle: String, alertMessage: String) {

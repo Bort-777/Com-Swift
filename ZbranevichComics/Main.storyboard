@@ -188,46 +188,33 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RKc-1q-UvL">
-                                    <size key="itemSize" width="255" height="250"/>
+                                    <size key="itemSize" width="80" height="80"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="p9i-9M-dZ8" customClass="PagesCollectionViewCell" customModule="ZbranevichComics" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="74" width="255" height="250"/>
+                                        <rect key="frame" x="10" y="74" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="255" height="250"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="av4-75-YNM">
-                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLz-Fl-RkG">
-                                                    <rect key="frame" x="8" y="216" width="234" height="26"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="26" id="iCh-xe-PoF"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="trailingMargin" secondItem="av4-75-YNM" secondAttribute="trailing" constant="-3" id="AII-EZ-f9C"/>
-                                            <constraint firstItem="KLz-Fl-RkG" firstAttribute="bottom" secondItem="p9i-9M-dZ8" secondAttribute="bottomMargin" id="VeH-2b-nWN"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="av4-75-YNM" secondAttribute="trailing" constant="-8" id="AII-EZ-f9C"/>
                                             <constraint firstAttribute="bottom" secondItem="av4-75-YNM" secondAttribute="bottom" id="Xki-HU-Oag"/>
                                             <constraint firstItem="av4-75-YNM" firstAttribute="leading" secondItem="p9i-9M-dZ8" secondAttribute="leading" id="ZSK-gP-Kas"/>
                                             <constraint firstItem="av4-75-YNM" firstAttribute="top" secondItem="p9i-9M-dZ8" secondAttribute="top" id="aIS-VU-HeY"/>
-                                            <constraint firstItem="KLz-Fl-RkG" firstAttribute="leading" secondItem="p9i-9M-dZ8" secondAttribute="leadingMargin" id="hKk-AJ-g13"/>
-                                            <constraint firstItem="av4-75-YNM" firstAttribute="centerX" secondItem="KLz-Fl-RkG" secondAttribute="centerX" id="tp2-fW-BJV"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="av4-75-YNM" id="5ND-zP-8is"/>
-                                            <outlet property="titleLabel" destination="KLz-Fl-RkG" id="pcn-t8-g2p"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

@@ -11,7 +11,7 @@ import RealmSwift
 
 class Media: Object {
     
-    dynamic var URL = ""
+    dynamic var id = 0
     dynamic var x : Float = 0.0
     dynamic var y : Float = 0.0
     dynamic var width : Float = 0.0
@@ -25,9 +25,9 @@ class Media: Object {
 
     }
     
-    func setLocalURL(publicURL: String) {
+    func setLocalURL(id: Int) {
         //TODO: save local
-        self.URL = publicURL
+        self.id = id
     }
     
 // Specify properties to ignore (Realm won't persist these)

@@ -16,6 +16,7 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
     @IBOutlet weak var collectionView: UICollectionView!
     
     var currentBook = Book()
+    var currentPage = Page()
     var currentDragAndDropIndexPath: NSIndexPath?
     var currentDragAndDropSnapShot: UIView?
     
@@ -100,7 +101,6 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! PagesCollectionViewCell
         let page = currentBook.page[indexPath.row]
         cell.setPage(page)
-        cell.titleLabel?.text = String(page.id)
         
         return cell
         
@@ -108,7 +108,9 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
+        currentPage = currentBook.page[indexPath.row]
         self.performSegueWithIdentifier("showImage", sender: self)
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -121,6 +123,8 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
                 //let indexPath = indexPaths[0] as NSIndexPath
             let vc = segue.destinationViewController as! PagesViewController
             vc.currentBook = self.currentBook
+            vc.frameViewController.currentPage = currentPage
+            
         case "addPage"?:
             let vc = segue.destinationViewController as! SettingsViewController
             vc.currentBook = self.currentBook
@@ -184,11 +188,10 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
 class PagesCollectionViewCell: UICollectionViewCell
 {
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
+
     
     func setPage(page: Page) {
         imageView.image = loadImage(page.id)
-        titleLabel.text = String(page.id)
     }
     
     func loadImage(id: Int) -> UIImage? {
