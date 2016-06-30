@@ -1,0 +1,53 @@
+{
+  "sticers": [
+    {
+      "URLname": "sticker1",
+      "x": 0,
+      "y": 0,
+      "width": 200,
+      "heigth": 200,
+      "text": {
+        "data": "Hello",
+        "x": 0,
+        "y": 0,
+        "width": 200,
+        "heigth": 200
+      }
+    },
+    {
+      "URLname": "sticker2",
+      "x": 0,
+      "y": 0,
+      "width": 200,
+      "heigth": 200,
+      "text": {
+        "data": "Hello",
+        "x": 0,
+        "y": 0,
+        "width": 200,
+        "heigth": 200
+      }
+    },
+    {
+      "URLname": "sticker3",
+      "x": 0,
+      "y": 0,
+      "width": 200,
+      "heigth": 200,
+      "text": {
+        "data": "Hello",
+        "x": 0,
+        "y": 0,
+        "width": 200,
+        "heigth": 200
+      }
+    },
+    {
+      "URLname": "sticker4",
+      "x": 0,
+      "y": 0,
+      "width": 200,
+      "heigth": 200
+    }
+  ]
+}
