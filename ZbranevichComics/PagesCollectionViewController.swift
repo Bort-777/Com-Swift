@@ -15,6 +15,7 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
 {
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
     var currentBook = Book()
     var currentPage = Page()
     var currentDragAndDropIndexPath: NSIndexPath?
@@ -25,7 +26,7 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
         super.viewDidLoad()
         self.title = String(currentBook.name)
         // Do any additional setup after loading the view, typically from a nib.
-        let longpress = UILongPressGestureRecognizer(target: self, action: "longPressGestureRecognized:")
+        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(PagesCollectionViewController.longPressGestureRecognized(_:)))
         collectionView.addGestureRecognizer(longpress)
     }
     
@@ -126,29 +127,70 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
             vc.frameViewController.currentPage = currentPage
             
         case "addPage"?:
-            let vc = segue.destinationViewController as! SettingsViewController
-            vc.currentBook = self.currentBook
+            let vc = segue.destinationViewController as! ImageViewController
+            vc.comics = self.currentBook
         default: break
             
         }
     }
-    @IBAction func editBook(sender: AnyObject) {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in }
-        let destroyAction = UIAlertAction(title: "Delete", style: .Destructive) { (action) in
-            try! uiRealm.write({ () -> Void in
-                uiRealm.delete(self.currentBook)
+    @IBAction func editBook(sender: UIBarButtonItem) {
+  
+        let spacer = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+        
+
+        let done = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(doneEdit))
+        let add = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addPage))
+        let editName = UIBarButtonItem(title: "Edit title", style: .Plain, target: self, action: #selector(PagesCollectionViewController.editName))
+        let delete = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: #selector(deleteComics))
+
+        
+        navigationItem.rightBarButtonItems = [done]
+        toolbarItems = [add, spacer, editName, spacer, delete]
+    
+        navigationController?.setToolbarHidden(false, animated: true)
+        
+    }
+    
+    func doneEdit() {
+        let edit = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(editBook))
+        navigationItem.rightBarButtonItems = [edit]
+        navigationController?.setToolbarHidden(true, animated: true)
+
+    }
+    func addPage() {
+        navigationController?.setToolbarHidden(true, animated: true)
+        self.performSegueWithIdentifier("addPage", sender: self)
+    }
+    
+    func editName() {
+        let alertController = UIAlertController(title: "Comics", message: "Name this comic", preferredStyle: .Alert)
+        let confirmAction = UIAlertAction(title: "Save", style: .Default) { (_) in
+            let field = alertController.textFields![0]
+            try! uiRealm.write({
+                self.currentBook.name = field.text!
             })
-            self.navigationController?.popToRootViewControllerAnimated(true)
+            self.title = self.currentBook.name
+            
         }
-        let addAction = UIAlertAction(title: "Add Page", style: .Default) { (action) in
-            self.performSegueWithIdentifier("addPage", sender: self)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+        
+        alertController.addTextFieldWithConfigurationHandler { (textField) in
+            textField.text = self.title
         }
-        alertController.addAction(addAction)
-        alertController.addAction(destroyAction)
+        
+        alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
+        alertController.view.setNeedsLayout()
         
         self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func deleteComics(sender: AnyObject?) {
+        
+        try! uiRealm.write({ () -> Void in
+                    uiRealm.delete(self.currentBook)
+                })
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
 
     // MARK: UICollectionViewDelegate

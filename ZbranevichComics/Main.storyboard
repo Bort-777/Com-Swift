@@ -6,60 +6,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Settings View Controller-->
-        <scene sceneID="IE8-FV-lOy">
-            <objects>
-                <viewController id="Prs-XB-FFc" customClass="SettingsViewController" customModule="ZbranevichComics" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ImZ-u3-YL7"/>
-                        <viewControllerLayoutGuide type="bottom" id="KZI-5Y-BDj"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="10t-VP-Sxm">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GET-y1-7xj">
-                                <rect key="frame" x="274" y="255" width="52" height="90"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="juc-8Y-UHU">
-                                        <rect key="frame" x="0.0" y="0.0" width="52" height="30"/>
-                                        <state key="normal" title="First"/>
-                                        <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="yTn-Aa-5al"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hi0-Vl-ceL">
-                                        <rect key="frame" x="0.0" y="30" width="52" height="30"/>
-                                        <state key="normal" title="Second"/>
-                                        <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="x3Y-Xd-x4f"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uYx-es-2kg">
-                                        <rect key="frame" x="0.0" y="60" width="52" height="30"/>
-                                        <state key="normal" title="Three"/>
-                                        <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="YpX-Rm-tun"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="GET-y1-7xj" firstAttribute="centerY" secondItem="10t-VP-Sxm" secondAttribute="centerY" id="61d-Q2-NWX"/>
-                            <constraint firstItem="GET-y1-7xj" firstAttribute="centerX" secondItem="10t-VP-Sxm" secondAttribute="centerX" id="bWB-5t-NJb"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="5ok-WD-1wc"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" id="Pzq-ih-1Cx"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fXB-vP-mzI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1429" y="-204"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="D1r-2q-c9x">
             <objects>
@@ -132,7 +78,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Comics" id="7Bp-Pw-FRa">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="TaJ-FM-TUG">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" style="done" systemItem="save" id="TaJ-FM-TUG">
                             <connections>
                                 <action selector="savePage:" destination="BYZ-38-t0r" id="o5z-Ek-5A6"/>
                             </connections>
@@ -142,12 +88,13 @@
                     <connections>
                         <outlet property="cloudCollection" destination="muz-Xz-vhZ" id="8xF-GT-E2m"/>
                         <outlet property="mainView" destination="kL3-bq-L2p" id="7ae-bY-HdU"/>
+                        <outlet property="saveButton" destination="TaJ-FM-TUG" id="JYC-R9-qgj"/>
                         <segue destination="W9z-7e-Dtd" kind="show" identifier="chouseImage" id="K5J-Wp-xac"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2145" y="-204"/>
+            <point key="canvasLocation" x="1429" y="-224"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="I2v-aT-114">
@@ -164,9 +111,6 @@
                         <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
-                    <connections>
-                        <segue destination="Prs-XB-FFc" kind="relationship" relationship="rootViewController" id="6Vb-89-wNh"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ko7-dB-aNO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -184,8 +128,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XI9-oA-o2R">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XI9-oA-o2R">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RKc-1q-UvL">
                                     <size key="itemSize" width="80" height="80"/>
@@ -226,13 +170,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="XI9-oA-o2R" secondAttribute="bottom" id="8Pp-Id-JTF"/>
-                            <constraint firstItem="XI9-oA-o2R" firstAttribute="top" secondItem="WJl-M7-Cey" secondAttribute="top" id="UZ9-cy-8Hy"/>
-                            <constraint firstItem="XI9-oA-o2R" firstAttribute="leading" secondItem="WJl-M7-Cey" secondAttribute="leading" id="inB-CU-Uuu"/>
-                            <constraint firstAttribute="trailing" secondItem="XI9-oA-o2R" secondAttribute="trailing" id="qQk-7V-lJi"/>
+                            <constraint firstAttribute="trailing" secondItem="XI9-oA-o2R" secondAttribute="trailing" id="GRJ-9l-e34"/>
+                            <constraint firstItem="XI9-oA-o2R" firstAttribute="leading" secondItem="WJl-M7-Cey" secondAttribute="leading" id="Wvb-ea-jeR"/>
+                            <constraint firstItem="XI9-oA-o2R" firstAttribute="bottom" secondItem="AlV-mv-AVl" secondAttribute="top" id="XRW-x0-Bgw"/>
+                            <constraint firstItem="XI9-oA-o2R" firstAttribute="top" secondItem="WJl-M7-Cey" secondAttribute="top" id="aLc-o6-Sbz"/>
                         </constraints>
                     </view>
-                    <toolbarItems/>
+                    <tabBarItem key="tabBarItem" title="Item" id="FaH-91-1gd"/>
+                    <toolbarItems>
+                        <barButtonItem systemItem="trash" id="Hm0-hW-TnO"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="7ex-jK-5aE"/>
+                        <barButtonItem systemItem="add" id="VSt-rO-KIZ"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Pages" id="i0c-27-geF">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="2LI-Jd-TFj">
                             <connections>
@@ -240,11 +189,12 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="XI9-oA-o2R" id="KLH-fF-Cxp"/>
+                        <outlet property="deleteButton" destination="Hm0-hW-TnO" id="d5k-Z5-3jD"/>
                         <segue destination="7uG-bE-O4H" kind="show" identifier="showImage" id="Ge1-Px-xL8"/>
-                        <segue destination="Prs-XB-FFc" kind="show" identifier="addPage" id="gYQ-Ob-8Dq"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="addPage" id="XBx-E9-euc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k1n-sP-iH8" sceneMemberID="firstResponder"/>
@@ -281,7 +231,7 @@
         <!--Comics-->
         <scene sceneID="NTF-Ld-IVR">
             <objects>
-                <viewController id="18S-O3-kh7" customClass="ComicsCollectionViewController" customModule="ZbranevichComics" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="18S-O3-kh7" customClass="ComicsCollectionViewController" customModule="ZbranevichComics" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xrJ-RA-hMo"/>
                         <viewControllerLayoutGuide type="bottom" id="aWZ-6e-6Lg"/>
@@ -294,27 +244,27 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qQK-vs-08p">
-                                    <size key="itemSize" width="150" height="212"/>
+                                    <size key="itemSize" width="140" height="200"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="20" minY="10" maxX="10" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="GWO-gY-RRF" customClass="ComicsCollectionViewCell" customModule="ZbranevichComics" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="74" width="150" height="212"/>
+                                        <rect key="frame" x="20" y="74" width="140" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="212"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="140" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xH4-tf-p6k">
-                                                    <rect key="frame" x="0.0" y="10" width="150" height="192"/>
+                                                    <rect key="frame" x="0.0" y="10" width="140" height="180"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A15-2H-h8g">
-                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="140" height="138"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Supercomics" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3x-Cd-xUp">
-                                                            <rect key="frame" x="0.0" y="150" width="150" height="26"/>
+                                                            <rect key="frame" x="0.0" y="138" width="140" height="26"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="26" id="WLW-YE-bT0"/>
                                                             </constraints>
@@ -323,7 +273,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N page(s)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fa6-UH-yKs">
-                                                            <rect key="frame" x="0.0" y="176" width="150" height="16"/>
+                                                            <rect key="frame" x="0.0" y="164" width="140" height="16"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="16" id="fN7-01-1BQ"/>
                                                             </constraints>
@@ -451,11 +401,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CVy-su-cqp" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2886" y="-204"/>
+            <point key="canvasLocation" x="2186" y="-224"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="gYQ-Ob-8Dq"/>
-        <segue reference="x3Y-Xd-x4f"/>
-    </inferredMetricsTieBreakers>
 </document>

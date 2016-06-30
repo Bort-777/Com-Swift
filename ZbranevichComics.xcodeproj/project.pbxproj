@@ -16,7 +16,6 @@
 		CE2F72BD1D1E85F600E3BCDB /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F72BC1D1E85F600E3BCDB /* Media.swift */; };
 		CE3D44C71D16AD7A001A4B85 /* ComicsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D44C61D16AD7A001A4B85 /* ComicsCollectionViewController.swift */; };
 		CE3D44C91D16B2AA001A4B85 /* ComicsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D44C81D16B2AA001A4B85 /* ComicsCollectionViewCell.swift */; };
-		CE8383061D11E6690080090B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE8383051D11E6690080090B /* Main.storyboard */; };
 		CE9283F71D18373500284395 /* PagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9283F61D18373500284395 /* PagesViewController.swift */; };
 		CE9283FA1D18435700284395 /* PagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9283F91D18435700284395 /* PagesCollectionViewController.swift */; };
 		CE9283FE1D18637800284395 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9283FD1D18637800284395 /* Book.swift */; };
@@ -24,7 +23,8 @@
 		CEA9DD641D22F87E00D795F4 /* Template.json in Resources */ = {isa = PBXBuildFile; fileRef = CEA9DD631D22F87E00D795F4 /* Template.json */; };
 		CEC963A01D1FE51B007E5A3B /* ChouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9639F1D1FE51B007E5A3B /* ChouseViewController.swift */; };
 		CEC963A21D202364007E5A3B /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC963A11D202364007E5A3B /* Cloud.swift */; };
-		CED2BBFE1D0F3B43004F1273 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2BBFD1D0F3B43004F1273 /* SettingsViewController.swift */; };
+		CEEFFBB21D2559F10056C57D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEEFFBB11D2559F10056C57D /* Main.storyboard */; };
+		CEEFFBB61D2565AB0056C57D /* sticker.json in Resources */ = {isa = PBXBuildFile; fileRef = CEEFFBB51D2565AB0056C57D /* sticker.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,7 +52,6 @@
 		CE2F72BC1D1E85F600E3BCDB /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		CE3D44C61D16AD7A001A4B85 /* ComicsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComicsCollectionViewController.swift; sourceTree = "<group>"; };
 		CE3D44C81D16B2AA001A4B85 /* ComicsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComicsCollectionViewCell.swift; sourceTree = "<group>"; };
-		CE8383051D11E6690080090B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		CE9283F61D18373500284395 /* PagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagesViewController.swift; sourceTree = "<group>"; };
 		CE9283F91D18435700284395 /* PagesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagesCollectionViewController.swift; sourceTree = "<group>"; };
 		CE9283FD1D18637800284395 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
@@ -61,7 +60,8 @@
 		CEC05A9E1D12C48900A9C2AA /* ZbranevichComics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZbranevichComics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC9639F1D1FE51B007E5A3B /* ChouseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChouseViewController.swift; sourceTree = "<group>"; };
 		CEC963A11D202364007E5A3B /* Cloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cloud.swift; sourceTree = "<group>"; };
-		CED2BBFD1D0F3B43004F1273 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		CEEFFBB11D2559F10056C57D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		CEEFFBB51D2565AB0056C57D /* sticker.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sticker.json; sourceTree = "<group>"; };
 		EC26C3DFF2498D76DCD17AB3 /* Pods_ZbranevichComics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZbranevichComics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -99,9 +99,9 @@
 			isa = PBXGroup;
 			children = (
 				CE9284041D199A9E00284395 /* Sample.m4v */,
+				CEEFFBB51D2565AB0056C57D /* sticker.json */,
 				CEA9DD631D22F87E00D795F4 /* Template.json */,
 				CE1683461D0EFA7700979456 /* Other */,
-				CE8383051D11E6690080090B /* Main.storyboard */,
 				CE9283FF1D1871D300284395 /* Add Page */,
 				CE9283F81D18431B00284395 /* Pages Collection */,
 				CE3D44CA1D16BF61001A4B85 /* Comics Collection */,
@@ -117,6 +117,7 @@
 				CE16833B1D0EFA4D00979456 /* Assets.xcassets */,
 				CE16833D1D0EFA4D00979456 /* LaunchScreen.storyboard */,
 				CE1683341D0EFA4D00979456 /* AppDelegate.swift */,
+				CEEFFBB11D2559F10056C57D /* Main.storyboard */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -162,7 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				CE1683471D0EFB6200979456 /* ImageViewController.swift */,
-				CED2BBFD1D0F3B43004F1273 /* SettingsViewController.swift */,
 				CEC9639F1D1FE51B007E5A3B /* ChouseViewController.swift */,
 				CEC963A11D202364007E5A3B /* Cloud.swift */,
 			);
@@ -241,8 +241,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE9284051D199AD400284395 /* Sample.m4v in Resources */,
-				CE8383061D11E6690080090B /* Main.storyboard in Resources */,
+				CEEFFBB21D2559F10056C57D /* Main.storyboard in Resources */,
 				CE16833F1D0EFA4D00979456 /* LaunchScreen.storyboard in Resources */,
+				CEEFFBB61D2565AB0056C57D /* sticker.json in Resources */,
 				CE16833C1D0EFA4D00979456 /* Assets.xcassets in Resources */,
 				CEA9DD641D22F87E00D795F4 /* Template.json in Resources */,
 			);
@@ -314,7 +315,6 @@
 				CE9283FE1D18637800284395 /* Book.swift in Sources */,
 				CE1683351D0EFA4D00979456 /* AppDelegate.swift in Sources */,
 				CE9283FA1D18435700284395 /* PagesCollectionViewController.swift in Sources */,
-				CED2BBFE1D0F3B43004F1273 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

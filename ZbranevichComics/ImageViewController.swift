@@ -28,58 +28,140 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
     //MARK: - Other
     
     var load = false
-    var imageSet = [MyFrame]()
+    var imageSet: [[String: AnyObject]] = []
+    var templates: [[String: AnyObject]]? = nil
     var media = [NSURL]()
 
     var templateContainer: UIView!
     @IBOutlet weak var cloudCollection: UICollectionView!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
     @IBOutlet weak var mainView: UIView!
+    var first = true;
     
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
+        loadJSONTemplates()
     }
     
     override func viewDidAppear(animated: Bool) {
         self.cloudCollection.delegate = self
         self.cloudCollection.dataSource = self
         
-        if load == false {
-            imagePicker.delegate = self
-            createTemplateView()
-            for viewPart in imageSet {
-                createScrollView(viewPart)
-            }
-            load = true
-        }
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 10
+        if first {
+         return templates!.count
+        }
+        else {
+            return templates!.count
+        }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
         
-        cell.backgroundColor = UIColor.blueColor()
+        if first {
+            for aa in cell.subviews {
+                aa.removeFromSuperview()
+            }
+            let iv = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.width))
+
+            iv.image = UIImage(named: "pug2")
+            cell.addSubview(iv)
+        }
+        else {
+            for aa in cell.subviews {
+                aa.removeFromSuperview()
+            }
+            let iv = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.width))
+            let imageName = templates![indexPath.row]["name"] as? String
+            
+            iv.image = UIImage(named: imageName!)
+            cell.addSubview(iv)
+
+
+        }
+        
         return cell
         
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
-        let tmp = Cloud(frame: CGRect(x: 0, y: 0, width: 200.0, height: 200.0))
-        tmp.textF.text = "hello"
+        if first {
+            let template = templates![indexPath.row]["struct"]
+            
+            self.imageSet = template as! [[String : AnyObject]]
+            if load == false {
+                imagePicker.delegate = self
+                createTemplateView()
+                for viewPart in imageSet {
+                    createScrollView(viewPart)
+                }
+                load = true
+                collectionView.reloadData()
+            }
+            first = false;
+            saveButton.enabled = true
+            loadJSONCloud()
+        }
+        else {
+            let dataFrame =  templates![indexPath.row]["frame"]
+            
 
-        
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageViewController.panGestureDetected(_:)))
-        panGestureRecognizer.minimumNumberOfTouches = 1
-        tmp.addGestureRecognizer(panGestureRecognizer)
-        templateContainer.addSubview(tmp)
+            let tmp = Cloud(frame: CGRect(x: dataFrame!["x"] as! CGFloat,
+                y: dataFrame!["y"] as! CGFloat,
+                width: dataFrame!["width"] as! CGFloat,
+                height: dataFrame!["height"] as! CGFloat
+                ))
+            tmp.imageName = templates![indexPath.row]["name"] as? String
+            if let textData = templates![indexPath.row]["text"] as? [String : AnyObject] {
+                tmp.imageText = textData
+            }
+            
+            let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageViewController.panGestureDetected(_:)))
+            panGestureRecognizer.minimumNumberOfTouches = 1
+            tmp.addGestureRecognizer(panGestureRecognizer)
+            templateContainer.addSubview(tmp)
+        }
     }
+    
+    func loadJSONTemplates() {
+        let url = NSBundle.mainBundle().URLForResource("Template", withExtension: "json")
+        let data = NSData(contentsOfURL: url!)
+        do {
+            let object = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+            if let dictionary = object as? [String: AnyObject] {
+                guard
+                let templates = dictionary["templates"] as? [[String: AnyObject]] else { print("err");return }
+                self.templates = templates
+            }
+        } catch {
+            // Handle Error
+        }
+    }
+    
+    func loadJSONCloud() {
+        let url = NSBundle.mainBundle().URLForResource("sticker", withExtension: "json")
+        let data = NSData(contentsOfURL: url!)
+        do {
+            let object = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+            if let dictionary = object as? [String: AnyObject] {
+                guard
+                    let templates = dictionary["clouds"] as? [[String: AnyObject]] else { print("err");return }
+                self.templates = templates
+            }
+        } catch {
+            // Handle Error
+        }
+    }
+    
+  
     
     func panGestureDetected(sender: UIPanGestureRecognizer) {
         let translation = sender.translationInView(self.templateContainer)
@@ -106,11 +188,17 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
     
     //MARK: - TemplateControll
     
-    func createScrollView(dataOfView: MyFrame) {
-        let x = mainView.bounds.width * dataOfView.x
-        let y = mainView.bounds.width * dataOfView.y
-        let width = mainView.bounds.width * dataOfView.width
-        let height = mainView.bounds.width * dataOfView.heigth
+    func createScrollView(dataOfView: [String: AnyObject]) {
+        guard
+        let dataX = dataOfView["x"] as? CGFloat,
+        let dataY = dataOfView["y"] as? CGFloat,
+        let dataWidth = dataOfView["width"] as? CGFloat,
+        let dataHeight = dataOfView["heigth"] as? CGFloat else { return }
+        
+        let x = mainView.bounds.width * dataX
+        let y = mainView.bounds.width * dataY
+        let width = mainView.bounds.width * dataWidth
+        let height = mainView.bounds.width * dataHeight
         
         let imageView = UIImageView()
         
@@ -120,13 +208,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
         scrollView.addSubview(imageView)
 
         
-        let url = NSURL(string: dataOfView.URLname)
-        var image = UIImage();
-        if let imageData = NSData (contentsOfURL: url!) {
-            image = UIImage(data: imageData)!
-            //image = UIImage(named: "empty")!
-        }
-        
+         let image = UIImage(named: "pug3")!
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ImageViewController.imageTapped(_:) ))
         tapGestureRecognizer.numberOfTapsRequired = 1
         imageView.addGestureRecognizer(tapGestureRecognizer)

@@ -1,59 +1,28 @@
 {
-  "templates": [
-    [
-      {
-        "URLname": "John",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "heigth": 1
-      }
-    ],
-    [
-      {
-        "URLname": "John",
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "heigth": 0.5
-      },
-      {
-        "URLname": "Mark",
-        "x": 0,
-        "y": 0.5,
-        "width": 1,
-        "heigth": 0.5
-      }
-    ],
-    [
-      {
-        "URLname": "John",
-        "x": 0,
-        "y": 0,
-        "width": 0.5,
-        "heigth": 0.5
-      },
-      {
-        "URLname": "Mark",
-        "x": 0.5,
-        "y": 0,
-        "width": 0.5,
-        "heigth": 0.5
-      },
-      {
-        "URLname": "Sarah",
-        "x": 0,
-        "y": 0.5,
-        "width": 0.5,
-        "heigth": 0.5
-      },
-      {
-        "URLname": "Sarah",
-        "x": 0.5,
-        "y": 0.5,
-        "width": 0.5,
-        "heigth": 0.5
-      }
-    ]
-  ]
+    "templates": [{
+                  "name": "First",
+                  "struct": [{
+                             "URLname": "John",
+                             "x": 0,
+                             "y": 0,
+                             "width": 1,
+                             "heigth": 1
+                             }]
+                  }, {
+                  "name": "Second",
+                  "struct": [{
+                             "URLname": "John",
+                             "x": 0,
+                             "y": 0,
+                             "width": 1,
+                             "heigth": 0.5
+                             },
+                             {
+                             "URLname": "John",
+                             "x": 0,
+                             "y": 0.5,
+                             "width": 1,
+                             "heigth": 0.5
+                             }]
+                  }]
 }

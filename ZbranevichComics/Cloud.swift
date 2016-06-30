@@ -13,26 +13,51 @@ class Cloud: UIView, UITextFieldDelegate {
 
     var textF: UITextField!
     var imageView: UIImageView!
+    var data: [String: AnyObject]!
+    
+    var imageName: String? {
+        didSet{
+            imageView.image = UIImage(named: imageName!)
+        }
+    }
+    
+    var imageText: [String: AnyObject]? {
+        didSet{
+            textF = UITextField(frame: CGRect(
+                x: imageText!["x"] as! CGFloat,
+                y: imageText!["y"] as! CGFloat,
+                width: self.frame.size.width,
+                height: imageText!["height"] as! CGFloat
+                ))
+            textF.text = imageText!["text"] as? String
+            textF.textColor = UIColor.blackColor()
+            textF.font = UIFont.systemFontOfSize(imageText!["height"] as! CGFloat)
+            textF.delegate = self
+            self.addSubview(textF)
+
+        }
+    }
+    
 
     
     override init (frame : CGRect) {
         super.init(frame : frame)
 
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.width))
-        imageView.image = UIImage(named: "pug")
+
         self.addSubview(imageView)
         
-        textF = UITextField(frame: CGRect(x: 12, y: 8, width: self.frame.size.width-90, height: 50))
-        textF.text = "Conn!"
-        textF.textColor = UIColor.whiteColor()
-        textF.font = UIFont.systemFontOfSize(14)
-        self.addSubview(textF)
-
+        
 
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+
         return true
     }
     

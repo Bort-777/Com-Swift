@@ -19,10 +19,12 @@ class ComicsCollectionViewController: UIViewController, UICollectionViewDataSour
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(animated: Bool) {
+        navigationController?.setToolbarHidden(true, animated: true)
         readBooksAndUpdateUI()
     }
     
