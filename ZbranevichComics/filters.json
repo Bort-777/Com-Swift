@@ -1,0 +1,13 @@
+{
+    "filterNameList" : [
+              "No Filter",
+              "CIPhotoEffectChrome",
+              "CIPhotoEffectFade",
+              "CIPhotoEffectInstant",
+              "CIPhotoEffectMono",
+              "CIPhotoEffectNoir",
+              "CIPhotoEffectProcess",
+              "CIPhotoEffectTonal",
+              "CIPhotoEffectTransfer"
+              ]
+}

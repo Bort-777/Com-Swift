@@ -36,17 +36,15 @@ class ChouseViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     // Selected image
     var selctedImage: UIImage!
+    var imageSmall: UIImage!
     
     
-    // filter Title and Name list
-    var filterTitleList: [String]!
+    // filter Name list
     var filterNameList: [String]!
     
     
     // filter selection picker
     @IBOutlet var filterCollection: UICollectionView!
-    
-    
     
     
     // MARK: - view functions
@@ -56,11 +54,11 @@ class ChouseViewController: UIViewController, UICollectionViewDataSource, UIColl
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        // set filter title list array.
-        self.filterTitleList = ["(( Choose Filter ))" ,"PhotoEffectChrome", "PhotoEffectFade", "PhotoEffectInstant", "PhotoEffectMono", "PhotoEffectNoir", "PhotoEffectProcess", "PhotoEffectTonal", "PhotoEffectTransfer"]
+        navigationController?.navigationBar.barTintColor = UIColor.darkGrayColor()
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.orangeColor()]
         
         // set filter name list array.
-        self.filterNameList = ["No Filter" ,"CIPhotoEffectChrome", "CIPhotoEffectFade", "CIPhotoEffectInstant", "CIPhotoEffectMono", "CIPhotoEffectNoir", "CIPhotoEffectProcess", "CIPhotoEffectTonal", "CIPhotoEffectTransfer"]
+        self.filterNameList = loadJSON()
         
         // set delegate for filter picker
         self.filterCollection.delegate = self
@@ -69,13 +67,9 @@ class ChouseViewController: UIViewController, UICollectionViewDataSource, UIColl
         // disable filter pickerView
         self.filterCollection.userInteractionEnabled = true
         
-        // show message label
-
-        
-        // disable save button
-        self.saveButton.enabled = false
-        
         previewImageView.image = selctedImage
+        
+        //imageSmall = UIImage(data: UIImageJPEGRepresentation(selctedImage, 0.1)!);
         
     }
     
@@ -84,6 +78,21 @@ class ChouseViewController: UIViewController, UICollectionViewDataSource, UIColl
         // Dispose of any resources that can be recreated.
     }
     
+    func loadJSON() -> [String] {
+        let url = NSBundle.mainBundle().URLForResource("filters", withExtension: "json")
+        let data = NSData(contentsOfURL: url!)
+        do {
+            let object = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+            if let dictionary = object as? [String: AnyObject] {
+                guard
+                    let templates = dictionary["filterNameList"] as? [String] else { return [] }
+                return templates
+            }
+        } catch {
+            // Handle Error
+        }
+        return []
+    }
     
     
     
@@ -106,7 +115,7 @@ class ChouseViewController: UIViewController, UICollectionViewDataSource, UIColl
     // how many component (i.e. column) to be displayed within picker view
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return self.filterTitleList.count
+        return self.filterNameList.count
     }
     
     // title/content for row in given component
@@ -116,8 +125,9 @@ class ChouseViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         cell.backgroundColor = UIColor.blueColor()
         let tmp = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.width))
-        //tmp.image = self.applyFilter(selectedFilterIndex: indexPath.row)
-        tmp.image = selctedImage
+        //tmp.image = self.applyFilter(selectedImage: imageSmall,
+        //                             selectedFilterIndex: indexPath.row)
+        tmp.image = UIImage(named: "pug3")
 
         cell.addSubview(tmp)
 
@@ -130,16 +140,8 @@ class ChouseViewController: UIViewController, UICollectionViewDataSource, UIColl
         func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
         {
         
-        // disable save button if filter not selected.
-        // enable save button if filter selected.
-        if indexPath.row == 0 {
-            self.saveButton.enabled = false
-        }else{
-            self.saveButton.enabled = true
-        }
-        
         // call funtion to apply the selected filter
-        self.previewImageView.image = self.applyFilter(selectedFilterIndex: indexPath.row)
+            self.previewImageView.image = self.applyFilter(selectedImage: self.selctedImage,selectedFilterIndex: indexPath.row)
     }
     
     
@@ -149,12 +151,14 @@ class ChouseViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     // Show action sheet for image source selection
     private func showImageSourceActionSheet() {
+        navigationController?.navigationBar.barTintColor = nil
+        navigationController?.navigationBar.titleTextAttributes =  nil
         navigationController?.popViewControllerAnimated(true)
         
     }
     
     // apply filter to current image
-    private func applyFilter(selectedFilterIndex filterIndex: Int) -> UIImage {
+    private func applyFilter(selectedImage image: UIImage,selectedFilterIndex filterIndex: Int) -> UIImage {
         
         //print("Filter - \(self.filterNameList[filterIndex)")
         
@@ -167,13 +171,13 @@ class ChouseViewController: UIViewController, UICollectionViewDataSource, UIColl
         // if No filter selected then apply default image and return.
         if filterIndex == 0 {
             // set image selected image
-            return self.selctedImage
+            return image
         }
         
         
         // Create and apply filter
         // 1 - create source image
-        let sourceImage = CIImage(image: self.selctedImage)
+        let sourceImage = CIImage(image: image)
         
         // 2 - create filter using name
         let myFilter = CIFilter(name: self.filterNameList[filterIndex])
@@ -199,45 +203,12 @@ class ChouseViewController: UIViewController, UICollectionViewDataSource, UIColl
     // save imaage to photo gallery
     private func saveImageToPhotoGallery(){
         // Save image
+        navigationController?.navigationBar.barTintColor = nil
+        navigationController?.navigationBar.titleTextAttributes =  nil
         let baskViewController = self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - 2] as! ImageViewController
         baskViewController.callbackImage(previewImageView.image!)
         navigationController?.popViewControllerAnimated(true)
 
     }
-    
-    private func saveCallbackVideo(URL: NSURL){
-        let baskViewController = self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - 2] as! ImageViewController
-        baskViewController.callbackVideo(URL)
-        navigationController?.popViewControllerAnimated(true)
-
-    }
-    
-    
-    // show message after image saved to photo gallery.
-    func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>) {
-        
-        // show success or error message.
-        if error == nil {
-            self.showAlertMessage(alertTitle: "Success", alertMessage: "Image Saved To Photo Gallery")
-        } else {
-            self.showAlertMessage(alertTitle: "Error!", alertMessage: (error?.localizedDescription)! )
-        }
-        
-    }
-    
-    
-    // Show alert message with OK button
-    func showAlertMessage(alertTitle alertTitle: String, alertMessage: String) {
-        
-        let myAlertVC = UIAlertController( title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-        
-        myAlertVC.addAction(okAction)
-        
-        self.presentViewController(myAlertVC, animated: true, completion: nil)
-    }
-    
-    
 }
 

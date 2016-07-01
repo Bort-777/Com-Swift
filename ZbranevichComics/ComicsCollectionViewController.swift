@@ -13,6 +13,8 @@ import RealmSwift
 class ComicsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate
 {
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    var editModeEnabled = false
     var books : Results<Book>!
    
     
@@ -50,7 +52,9 @@ class ComicsCollectionViewController: UIViewController, UICollectionViewDataSour
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
-        self.performSegueWithIdentifier("showPages", sender: self)
+        if (editModeEnabled == false) {
+            self.performSegueWithIdentifier("showPages", sender: self)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -86,7 +90,7 @@ class ComicsCollectionViewController: UIViewController, UICollectionViewDataSour
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
         
         alertController.addTextFieldWithConfigurationHandler { (textField) in
-            textField.placeholder = "Email"
+            textField.placeholder = "Title"
         }
         
         alertController.addAction(confirmAction)
@@ -95,5 +99,41 @@ class ComicsCollectionViewController: UIViewController, UICollectionViewDataSour
         
         self.presentViewController(alertController, animated: true, completion: nil)
     }
+    
+    @IBAction func editBook(sender: UIBarButtonItem) {
+        if(editModeEnabled == false) {
+            editButton.title = "Done"
+            self.editButton.style = .Done
+            editModeEnabled = true
+            
+            for item in self.collectionView!.visibleCells() as! [ComicsCollectionViewCell] {
+                item.deleteIcon.hidden = false
+                item.titleLabel.enabled = true
+            }
+        }
+        else {
+            editButton.title = "Edit"
+            editButton.style = .Plain
+            editModeEnabled = false
+            
+            for item in self.collectionView!.visibleCells() as! [ComicsCollectionViewCell] {
+                item.deleteIcon.hidden = true
+                item.titleLabel.enabled = false
+                
+            }
+
+        }
+    }
+    
+    @IBAction func deletePage(sender: UIButton) {
+        let point : CGPoint = sender.convertPoint(CGPointZero, toView:collectionView)
+        let indexPath = collectionView!.indexPathForItemAtPoint(point)
+        let cell = collectionView!.cellForItemAtIndexPath(indexPath!) as! ComicsCollectionViewCell
+        try! uiRealm.write({ () -> Void in
+            uiRealm.delete(cell.currentBook!)
+        })
+        collectionView.deleteItemsAtIndexPaths([indexPath!])
+    }
+
 }
 

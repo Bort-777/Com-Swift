@@ -15,19 +15,25 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
 {
     @IBOutlet weak var collectionView: UICollectionView!
     
-    @IBOutlet weak var deleteButton: UIBarButtonItem!
+    @IBOutlet weak var editButton: UIBarButtonItem!
     var currentBook = Book()
     var currentPage = Page()
+    var editModeEnabled = false
     var currentDragAndDropIndexPath: NSIndexPath?
     var currentDragAndDropSnapShot: UIView?
+    var longpress: UILongPressGestureRecognizer?
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.title = String(currentBook.name)
+        
         // Do any additional setup after loading the view, typically from a nib.
-        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(PagesCollectionViewController.longPressGestureRecognized(_:)))
-        collectionView.addGestureRecognizer(longpress)
+        longpress = UILongPressGestureRecognizer(target: self, action: #selector(PagesCollectionViewController.longPressGestureRecognized(_:)))
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.collectionView.reloadData()
     }
     
     func longPressGestureRecognized(sender: UIGestureRecognizer) {
@@ -38,7 +44,7 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
         case .Began:
             if indexPatchForLocation != nil {
                 self.currentDragAndDropIndexPath = indexPatchForLocation
-                let cell: PagesCollectionViewCell? = self.collectionView!.cellForItemAtIndexPath(indexPatchForLocation!) as? PagesCollectionViewCell
+                let cell: PageCollectionViewCell? = self.collectionView!.cellForItemAtIndexPath(indexPatchForLocation!) as? PageCollectionViewCell
                 self.currentDragAndDropSnapShot = cell!.snapshot
                 self.updareDragAndDropSnapShotView(0.0, center: cell!.center, transform: CGAffineTransformIdentity)
                 self.collectionView!.addSubview(self.currentDragAndDropSnapShot!)
@@ -62,7 +68,7 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
             }
         default:
             if indexPatchForLocation != nil {
-                let cell: PagesCollectionViewCell? = self.collectionView!.cellForItemAtIndexPath(indexPatchForLocation!) as? PagesCollectionViewCell
+                let cell: PageCollectionViewCell? = self.collectionView!.cellForItemAtIndexPath(indexPatchForLocation!) as? PageCollectionViewCell
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     self.updareDragAndDropSnapShotView(0.0, center: cell!.center, transform: CGAffineTransformIdentity)
                     cell?.isMoving = false
@@ -72,7 +78,7 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
                 })
             }
             else {
-                let cell: PagesCollectionViewCell? = self.collectionView!.cellForItemAtIndexPath(currentDragAndDropIndexPath!) as? PagesCollectionViewCell
+                let cell: PageCollectionViewCell? = self.collectionView!.cellForItemAtIndexPath(currentDragAndDropIndexPath!) as? PageCollectionViewCell
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     self.updareDragAndDropSnapShotView(0.0, center: cell!.center, transform: CGAffineTransformIdentity)
                     cell?.isMoving = false
@@ -99,7 +105,7 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! PagesCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! PageCollectionViewCell
         let page = currentBook.page[indexPath.row]
         cell.setPage(page)
         
@@ -109,8 +115,14 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
-        currentPage = currentBook.page[indexPath.row]
-        self.performSegueWithIdentifier("showImage", sender: self)
+       
+        
+        if(editModeEnabled == false) {
+            currentPage = currentBook.page[indexPath.row]
+            self.performSegueWithIdentifier("showImage", sender: self)
+        } else {
+           
+        }
         
     }
     
@@ -133,31 +145,52 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
             
         }
     }
+    
     @IBAction func editBook(sender: UIBarButtonItem) {
+        if(editModeEnabled == false) {
+            editButton.title = "Done"
+            self.editButton.style = .Done
+            editModeEnabled = true
   
-        let spacer = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
-        
+            let spacer = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+            let add = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addPage))
+            let editName = UIBarButtonItem(title: "Edit title", style: .Plain, target: self, action: #selector(PagesCollectionViewController.editName))
+            let delete = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: #selector(deleteComics))
 
-        let done = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(doneEdit))
-        let add = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addPage))
-        let editName = UIBarButtonItem(title: "Edit title", style: .Plain, target: self, action: #selector(PagesCollectionViewController.editName))
-        let delete = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: #selector(deleteComics))
-
-        
-        navigationItem.rightBarButtonItems = [done]
-        toolbarItems = [add, spacer, editName, spacer, delete]
+  
+            toolbarItems = [add, spacer, editName, spacer, delete]
     
-        navigationController?.setToolbarHidden(false, animated: true)
+            navigationController?.setToolbarHidden(false, animated: true)
         
+            collectionView.addGestureRecognizer(longpress!)
+        
+            for item in self.collectionView!.visibleCells() as! [PageCollectionViewCell] {
+            
+                item.shakeIcons()
+                item.selector.hidden  = false
+                item.isSelect = false
+            }
+        }
+        else {
+            editButton.title = "Edit"
+            editButton.style = .Plain
+            editModeEnabled = false
+            
+            for item in self.collectionView!.visibleCells() as! [PageCollectionViewCell] {
+                
+                item.isSelect = false
+                item.selector.hidden  = true
+                item.stopShakingIcons()
+            }
+
+            navigationController?.setToolbarHidden(true, animated: true)
+            
+            collectionView.removeGestureRecognizer(longpress!)
+        }
     }
     
-    func doneEdit() {
-        let edit = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(editBook))
-        navigationItem.rightBarButtonItems = [edit]
-        navigationController?.setToolbarHidden(true, animated: true)
-
-    }
     func addPage() {
+        editBook(editButton)
         navigationController?.setToolbarHidden(true, animated: true)
         self.performSegueWithIdentifier("addPage", sender: self)
     }
@@ -187,10 +220,19 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     func deleteComics(sender: AnyObject?) {
         
-        try! uiRealm.write({ () -> Void in
-                    uiRealm.delete(self.currentBook)
+        for item in self.collectionView!.visibleCells() as! [PageCollectionViewCell] {
+            if item.isSelect {
+                try! uiRealm.write({
+                    let index = self.currentBook.page.indexOf(item.currPage!)
+                    self.currentBook.page.removeAtIndex(index!)
+                    self.collectionView.deleteItemsAtIndexPaths([NSIndexPath(forItem: index!, inSection: 0 )])
                 })
-        self.navigationController?.popToRootViewControllerAnimated(true)
+                
+            }
+        }
+        editBook(editButton)
+   
+        
     }
 
     // MARK: UICollectionViewDelegate
@@ -227,13 +269,19 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
 }
 
 
-class PagesCollectionViewCell: UICollectionViewCell
+class PageCollectionViewCell: UICollectionViewCell
 {
     @IBOutlet weak var imageView: UIImageView!
 
     
     func setPage(page: Page) {
-        imageView.image = loadImage(page.id)
+        self.currPage = page
+    }
+    
+    var currPage: Page? {
+        didSet {
+            imageView.image = loadImage(currPage!.id)
+        }
     }
     
     func loadImage(id: Int) -> UIImage? {
@@ -245,10 +293,17 @@ class PagesCollectionViewCell: UICollectionViewCell
         return image
     }
     
+    @IBOutlet weak var selector: UIButton!
+    var isSelect: Bool = false {
+        didSet {
+            self.selector!.alpha = isSelect ? 1.0 : 0.5
+            self.imageView!.alpha = isSelect ? 0.5 : 1.0
+        }
+    }
+    
     var isMoving: Bool = false {
         didSet {
-            self.imageView!.alpha = isMoving ? 0.2 : 1.0
-            self.backgroundColor = isMoving ? UIColor.clearColor() : UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1)
+            self.hidden = isMoving
         }
     }
     
@@ -262,5 +317,45 @@ class PagesCollectionViewCell: UICollectionViewCell
         
         return snapshot
     }
+    
+    // This function shake the collection view cells
+    func shakeIcons() {
+        let shakeAnim = CABasicAnimation(keyPath: "transform.rotation")
+        shakeAnim.duration = 0.05
+        shakeAnim.repeatCount = 2
+        shakeAnim.autoreverses = true
+        let startAngle: Float = (-2) * 3.14159/180
+        let stopAngle = -startAngle
+        shakeAnim.fromValue = NSNumber(float: startAngle)
+        shakeAnim.toValue = NSNumber(float: 3 * stopAngle)
+        shakeAnim.autoreverses = true
+        shakeAnim.duration = 0.2
+        shakeAnim.repeatCount = 10000
+        shakeAnim.timeOffset = 290 * drand48()
+        
+        //Create layer, then add animation to the element's layer
+        let layer: CALayer = self.layer
+        layer.addAnimation(shakeAnim, forKey:"shaking")
+        //shakeEnabled = true
+    }
+    
+    // This function stop shaking the collection view cells
+    func stopShakingIcons() {
+        let layer: CALayer = self.layer
+        layer.removeAnimationForKey("shaking")
+        //self.deleteButton.hidden = true
+        //shakeEnabled = false
+    }
+    
+    @IBAction func selectIcon(sender: AnyObject) {
+        if (isSelect == false) {
+            isSelect = true
+        }
+        else {
+            isSelect = false
+        }
+    }
+    
+
 }
 

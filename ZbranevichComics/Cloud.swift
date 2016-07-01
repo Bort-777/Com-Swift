@@ -43,7 +43,7 @@ class Cloud: UIView, UITextFieldDelegate {
     override init (frame : CGRect) {
         super.init(frame : frame)
 
-        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.width))
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
 
         self.addSubview(imageView)
         

@@ -205,6 +205,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
         let scrollView = UIScrollView(frame: CGRect(x: x, y: y, width: width, height: height))
         
         scrollView.delegate = self
+        scrollView.layer.borderWidth = 2
         scrollView.addSubview(imageView)
 
         
@@ -466,7 +467,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
         }
         
      
-        navigationController?.popToRootViewControllerAnimated(true)
+        navigationController?.popViewControllerAnimated(true)
     }
     
     func saveLocalVideo (localPatch: NSURL) -> Int {

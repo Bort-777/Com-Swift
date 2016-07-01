@@ -8,13 +8,17 @@
 
 import UIKit
 
-class ComicsCollectionViewCell: UICollectionViewCell
+class ComicsCollectionViewCell: UICollectionViewCell, UITextFieldDelegate
 {
+    @IBOutlet weak var deleteIcon: UIButton!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UITextField!
     @IBOutlet weak var numPagesLabel: UILabel!
     
+    var currentBook: Book?
+    
     func setComics(comics: Book) {
+        self.currentBook = comics
         if let firstPage = comics.page.first
         {
             imageView.image = loadImage(firstPage.id)
@@ -34,4 +38,21 @@ class ComicsCollectionViewCell: UICollectionViewCell
         // Do whatever you want with the image
         return image
     }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        print("textFieldShouldReturn")
+        return true
+    }
+    
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        try! uiRealm.write({ () -> Void in
+            self.currentBook!.name = textField.text!
+        })
+        return true
+    }
+    
+
+
+
 }
