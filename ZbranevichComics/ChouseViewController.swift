@@ -1,9 +1,11 @@
 //
-//  ViewController.swift
-//  SwiftCoreImageFilter
+//  ChouseViewController.swift
+//  ZbranevichComics
 //
 //  Created by Prashant on 16/11/15.
-//  Copyright © 2015 PrashantKumar Mangukiya. All rights reserved.
+//  Edited by Zbranevich on 25.06.16.
+//
+//  All rights reserved.
 //
 
 import UIKit
@@ -14,7 +16,7 @@ class ChouseViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     
     
-    // Outlet & action - camera button
+    // Outlet & action - cancel button
     @IBOutlet var cancelButton: UIBarButtonItem!
     @IBAction func cancelButtonAction(sender: AnyObject) {
         // show action shee to choose image source.
@@ -160,13 +162,6 @@ class ChouseViewController: UIViewController, UICollectionViewDataSource, UIColl
     // apply filter to current image
     private func applyFilter(selectedImage image: UIImage,selectedFilterIndex filterIndex: Int) -> UIImage {
         
-        //print("Filter - \(self.filterNameList[filterIndex)")
-        
-        /* filter name
-         0 - NO Filter,
-         1 - PhotoEffectChrome, 2 - PhotoEffectFade, 3 - PhotoEffectInstant, 4 - PhotoEffectMono,
-         5 - PhotoEffectNoir, 6 - PhotoEffectProcess, 7 - PhotoEffectTonal, 8 - PhotoEffectTransfer
-         */
         
         // if No filter selected then apply default image and return.
         if filterIndex == 0 {

@@ -7,4 +7,5 @@ target 'ZbranevichComics' do
 
   # Pods for ZbranevichComics
   pod 'RealmSwift'
+  pod 'SwiftyDropbox'
 end

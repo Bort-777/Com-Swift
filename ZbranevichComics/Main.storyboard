@@ -138,7 +138,7 @@
                                     <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="p9i-9M-dZ8" customClass="PageCollectionViewCell" customModule="ZbranevichComics" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="p9i-9M-dZ8" customClass="PagesCollectionViewCell" customModule="ZbranevichComics" customModuleProvider="target">
                                         <rect key="frame" x="10" y="74" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -211,8 +211,23 @@
         <!--Pages View Controller-->
         <scene sceneID="Ms7-AV-OpY">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="7uG-bE-O4H" customClass="PagesViewController" customModule="ZbranevichComics" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="7uG-bE-O4H" customClass="PagesViewController" customModule="ZbranevichComics" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="4pv-vy-WOM">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="DM1-4F-Hpg">
+                            <connections>
+                                <action selector="shareAction:" destination="7uG-bE-O4H" id="aVz-l5-lJ0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cOA-fR-5qK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationBar contentMode="scaleToFill" id="xng-dX-eoI">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <items>
+                        <navigationItem title="Title" id="Lgh-e8-DVd"/>
+                    </items>
+                </navigationBar>
             </objects>
             <point key="canvasLocation" x="1429" y="603"/>
         </scene>

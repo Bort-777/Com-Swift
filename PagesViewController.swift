@@ -8,85 +8,80 @@
 
 
 import UIKit
-import AVKit
-import AVFoundation
+import Social
+import SwiftyDropbox
 
 class PagesViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     var currentBook = Book()
-    let frameViewController = FrameViewController()
-    var fullScreen = true
+    let frameViewController = PageViewController()
+    
+    // black screen
+    var fullScreen: Bool? {
+        didSet {
+            view.backgroundColor = fullScreen! ? UIColor.blackColor() : UIColor.whiteColor()
+            navigationController?.navigationBar.hidden = fullScreen!
+            UIApplication.sharedApplication().statusBarHidden = fullScreen!
+        }
+    }
+    
+    // MARK: - view functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         dataSource = self
         
-        view.backgroundColor = UIColor.blackColor()
-        navigationController?.navigationBar.hidden = true // for navigation bar show
-        UIApplication.sharedApplication().statusBarHidden = true; // for status bar show
+        // choose style
+        fullScreen = false
 
+        // page in PagesViewController
         let viewControllers = [frameViewController]
         setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
         
+        // tap on pag for changing color
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PagesViewController.tapGestureDetected(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         view.addGestureRecognizer(tapGestureRecognizer)
 
     }
-    
-    func tapGestureDetected(sender: UITapGestureRecognizer) {
-        if fullScreen {
-            view.backgroundColor = UIColor.whiteColor()
-            navigationController?.navigationBar.hidden = false // for navigation bar hide
-            UIApplication.sharedApplication().statusBarHidden = false; // for status bar hide
-            fullScreen = false
-        } else {
-            view.backgroundColor = UIColor.blackColor()
-            navigationController?.navigationBar.hidden = true // for navigation bar show
-            UIApplication.sharedApplication().statusBarHidden = true; // for status bar show
-            fullScreen = true
-        }
-       
 
+    // called when need change screen
+    func tapGestureDetected(sender: UITapGestureRecognizer) {
+        
+        fullScreen! = !fullScreen!
     }
     
+    // MARK: - picker view delegate and data source (to choose page)
         
     func pageViewController(pageController: UIPageViewController, viewControllerAfterViewController
         viewController: UIViewController) -> UIViewController? {
         
-        let currentImageName = (viewController as! FrameViewController).currentPage
+        let currentImageName = (viewController as! PageViewController).currentPage
         let currentIndex = currentBook.page.indexOf(currentImageName!)
         
         if currentIndex < currentBook.page.count - 1 {
-            let frameViewController = FrameViewController()
+            let frameViewController = PageViewController()
             frameViewController.currentPage = currentBook.page[currentIndex! + 1]
-            if fullScreen {
-                frameViewController.activityIndicatorView.activityIndicatorViewStyle = .WhiteLarge
-            } else {
-                frameViewController.activityIndicatorView.activityIndicatorViewStyle = .Gray
-            }
+            frameViewController.activityIndicatorView.activityIndicatorViewStyle = fullScreen! ? .WhiteLarge : .Gray
 
             return frameViewController
         }
         
         return nil
-        }
+    }
         
     func pageViewController(pageController: UIPageViewController, viewControllerBeforeViewController
                viewController: UIViewController) -> UIViewController? {
         
-        let currentImageName = (viewController as! FrameViewController).currentPage
+        let currentImageName = (viewController as! PageViewController).currentPage
         let currentIndex = currentBook.page.indexOf(currentImageName!)
         
         if currentIndex > 0 {
-            let frameViewController = FrameViewController()
+            let frameViewController = PageViewController()
             frameViewController.currentPage = currentBook.page[currentIndex! - 1]
-            if fullScreen {
-                frameViewController.activityIndicatorView.activityIndicatorViewStyle = .WhiteLarge
-            } else {
-                frameViewController.activityIndicatorView.activityIndicatorViewStyle = .Gray
-            }
+            frameViewController.activityIndicatorView.activityIndicatorViewStyle = fullScreen! ? .WhiteLarge : .Gray
+            
             return frameViewController
         }
         
@@ -94,132 +89,98 @@ class PagesViewController: UIPageViewController, UIPageViewControllerDataSource 
     }
     
     func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+        
         return currentBook.page.count
     }
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
         let currentImageName = frameViewController.currentPage
         let currentIndex = currentBook.page.indexOf(currentImageName!)
+        
         return currentIndex!
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        //self.reloadInputViews()
+    // MARK: - actions
+    
+    @IBAction func shareAction(sender: AnyObject) {
+
+        let optionMenu = UIAlertController(title: nil, message: "Share to", preferredStyle: .ActionSheet)
+        let facebookAction = UIAlertAction(title: "Facebook", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.shareSLComposeView(SLServiceTypeFacebook)
+        })
+        let twitterAction = UIAlertAction(title: "Twitter", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.shareSLComposeView(SLServiceTypeTwitter)
+        })
+        let dropboxAction = UIAlertAction(title: "Dropbox", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.authorizedDropbox()
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+        })
+        
+        optionMenu.addAction(facebookAction)
+        optionMenu.addAction(twitterAction)
+        optionMenu.addAction(dropboxAction)
+        optionMenu.addAction(cancelAction)
+        
+        self.presentViewController(optionMenu, animated: true, completion: nil)
     }
     
-}
-
-class FrameViewController: UIViewController {
-
-
-    let imageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .ScaleAspectFit
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
-    }()
-    
-    var currentPage: Page? {
-        didSet {
-            imageView.image = loadImage(currentPage!.id)
-        }
-    }
-    private var firstAppear = true
-    var template = UIView()
-    
-    var activityIndicatorView: UIActivityIndicatorView {
-        let activityIndicatorView = UIActivityIndicatorView()
-        activityIndicatorView.center = view.center
-        self.view.addSubview(activityIndicatorView)
-        return activityIndicatorView
-    }
-
-    
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-        activityIndicatorView.startAnimating()
-        
-    }
-
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        let rect = templatePosition()
-
-        template = UIView(frame: rect)
-        
-        template.addSubview(imageView)
-        
-        template.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v0]|", options:
-            NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
-        template.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v0]|", options:
-            NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(self.imageTapped(_:) ))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        imageView.addGestureRecognizer(tapGestureRecognizer)
-
-        
-        view.addSubview(template)
-
-        for video in currentPage!.data
-        {
-            let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
-            let pathVideo = "\(pathDocuments)/\(video.id).MOV"
-            let x = CGFloat(video.x) //+ template.frame.minX
-            let y = CGFloat(video.y) //+ template.frame.minY
-            let h = CGFloat(video.height)
-            let w = CGFloat(video.width)
-            playVideo(CGRect(x: x, y: y, width: w, height: h), path: pathVideo)
-        }
-    }
-    
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-            viewDidAppear(true)
-    }
-    
-    func templatePosition() -> CGRect {
-        if UIDevice.currentDevice().orientation.isPortrait.boolValue {
-            let x = CGFloat(0)
-            let y = view.frame.midY - view.frame.midX
-            let size = view.frame.size.width
+    // share Facebook and Twitter
+    func shareSLComposeView(SLServiceType: String) {
+        if SLComposeViewController.isAvailableForServiceType(SLServiceType) {
+            let twShare = SLComposeViewController(forServiceType: SLServiceType)
+            let text = "Оne page of my comic \"\(currentBook.name)\""
+            let image = frameViewController.imageView.image!
+            let url = NSURL(string: "https://github.com/Bort-777/Comics-Swift")
             
-            return CGRect(x: x, y: y, width: size, height: size)
+            twShare.setInitialText(text)
+            twShare.addURL(url)
+            twShare.addImage(image)
+            
+            self.presentViewController(twShare, animated: true, completion: nil)
+            
+        } else {
+            let alert = UIAlertController(title: "Accounts", message: "Please login to account to share.", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    // authorized Dropbox
+    func authorizedDropbox() {
+        if Dropbox.authorizedClient != nil {
+            self.saveToDropbox()
         }
         else {
-            let x = view.frame.midX - view.frame.midY
-            let y = CGFloat(0)
-            let size = view.frame.size.height
-            
-            return CGRect(x: x, y: y, width: size, height: size)
+            Dropbox.authorizeFromController(self)
+            self.saveToDropbox()
         }
     }
     
-    func loadImage(id: Int) -> UIImage? {
-        let imageName = String(id)
-        let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
-        let readPath = "\(pathDocuments)/\(imageName).jpg"
-
-        let image    = UIImage(contentsOfFile: readPath)
-        // Do whatever you want with the image
-        return image
-    }
-    
-    func imageTapped(img: UITapGestureRecognizer) {
-        navigationController?.navigationBar.hidden = true // for navigation bar hide
-        UIApplication.sharedApplication().statusBarHidden=true; // for status bar hide
-    }
-    
-    private func playVideo(frame: CGRect, path: String) {
-        let player = AVPlayer(URL: NSURL(fileURLWithPath: path))
-        let playerController = AVPlayerViewController()
-        
-        playerController.player = player
-        playerController.view.frame = frame
-        self.addChildViewController(playerController)
-        self.template.addSubview(playerController.view)
-        //player.play()
-        
+    // save to Dropbox
+    func saveToDropbox() {
+        if let client = Dropbox.authorizedClient {
+            let path = "/\(currentBook.name)/\(frameViewController.currentPage!.id).jpg"
+            let fileData = UIImagePNGRepresentation(frameViewController.imageView.image!)
+            
+            // Upload a file
+            client.files.upload(path: path, body: fileData!).response { response, error in
+                if response != nil {
+                    let alert = UIAlertController(title: "Save to Dropbox", message: "File upload was successful.", preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                    
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                else {
+                    print(error!)
+                }
+            }
+        }
     }
 }

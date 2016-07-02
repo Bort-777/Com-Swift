@@ -13,8 +13,9 @@ class Cloud: UIView, UITextFieldDelegate {
 
     var textF: UITextField!
     var imageView: UIImageView!
-    var data: [String: AnyObject]!
     
+    // MARK: - data sourse
+
     var imageName: String? {
         didSet{
             imageView.image = UIImage(named: imageName!)
@@ -34,11 +35,10 @@ class Cloud: UIView, UITextFieldDelegate {
             textF.font = UIFont.systemFontOfSize(imageText!["height"] as! CGFloat)
             textF.delegate = self
             self.addSubview(textF)
-
         }
     }
     
-
+    // MARK: - init functions
     
     override init (frame : CGRect) {
         super.init(frame : frame)
@@ -46,10 +46,13 @@ class Cloud: UIView, UITextFieldDelegate {
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
 
         self.addSubview(imageView)
-        
-        
-
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - textField functions
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -59,9 +62,5 @@ class Cloud: UIView, UITextFieldDelegate {
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
 
         return true
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

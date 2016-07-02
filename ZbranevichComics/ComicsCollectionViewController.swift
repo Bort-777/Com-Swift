@@ -130,7 +130,7 @@ class ComicsCollectionViewController: UIViewController, UICollectionViewDataSour
         let indexPath = collectionView!.indexPathForItemAtPoint(point)
         let cell = collectionView!.cellForItemAtIndexPath(indexPath!) as! ComicsCollectionViewCell
         try! uiRealm.write({ () -> Void in
-            uiRealm.delete(cell.currentBook!)
+            uiRealm.delete(cell.getComics())
         })
         collectionView.deleteItemsAtIndexPaths([indexPath!])
     }

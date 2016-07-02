@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -13,10 +14,44 @@
                         <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleToFill" id="aTm-HG-zzz">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Demo app for Itransition" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="LL7-xY-Nar">
+                                <rect key="frame" x="80" y="559" width="441" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SwiftyComics" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="sXM-wn-Td4">
+                                <rect key="frame" x="80" y="137" width="441" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="c9g-9l-GzE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="pug4" translatesAutoresizingMaskIntoConstraints="NO" id="MEu-fH-oMJ" userLabel="watchfox">
+                                <rect key="frame" x="268" y="268" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="RU6-07-1jC"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="sXM-wn-Td4" firstAttribute="centerX" secondItem="aTm-HG-zzz" secondAttribute="centerX" id="3wN-3M-Drz"/>
+                            <constraint firstItem="sXM-wn-Td4" firstAttribute="trailing" secondItem="LL7-xY-Nar" secondAttribute="trailing" id="5sN-AD-ziS"/>
+                            <constraint firstItem="sXM-wn-Td4" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="117" id="Frd-Ab-FVj"/>
+                            <constraint firstAttribute="bottom" secondItem="LL7-xY-Nar" secondAttribute="bottom" constant="20" symbolic="YES" id="Irf-ca-rg2"/>
+                            <constraint firstItem="sXM-wn-Td4" firstAttribute="leading" secondItem="aTm-HG-zzz" secondAttribute="leadingMargin" constant="60" id="RFq-90-w2W"/>
+                            <constraint firstItem="sXM-wn-Td4" firstAttribute="leading" secondItem="LL7-xY-Nar" secondAttribute="leading" id="Rqg-Ma-aoy"/>
+                            <constraint firstItem="MEu-fH-oMJ" firstAttribute="centerY" secondItem="aTm-HG-zzz" secondAttribute="centerY" id="ctb-3F-YmP"/>
+                            <constraint firstItem="sXM-wn-Td4" firstAttribute="centerX" secondItem="MEu-fH-oMJ" secondAttribute="centerX" id="dOh-fE-we8"/>
+                            <constraint firstItem="MEu-fH-oMJ" firstAttribute="top" secondItem="sXM-wn-Td4" secondAttribute="bottom" constant="88" id="k62-eO-sDJ"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +59,7 @@
             <point key="canvasLocation" x="673" y="-115"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="pug4" width="500" height="500"/>
+    </resources>
 </document>
