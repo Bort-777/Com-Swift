@@ -1,0 +1,30 @@
+
+/* Class = "UIBarButtonItem"; title = "Edit"; ObjectID = "2LI-Jd-TFj"; */
+"2LI-Jd-TFj.title" = "Edit";
+
+/* Class = "UIBarButtonItem"; title = "Edit"; ObjectID = "5a0-P5-dBh"; */
+"5a0-P5-dBh.title" = "Edit";
+
+/* Class = "UINavigationItem"; title = "Comics"; ObjectID = "7Bp-Pw-FRa"; */
+"7Bp-Pw-FRa.title" = "Comics";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "942-4z-kuI"; */
+"942-4z-kuI.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "N page(s)"; ObjectID = "Fa6-UH-yKs"; */
+"Fa6-UH-yKs.text" = "N page(s)";
+
+/* Class = "UINavigationItem"; title = "Core Image Filter"; ObjectID = "HFC-og-QTg"; */
+"HFC-og-QTg.title" = "Core Image Filter";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "Lgh-e8-DVd"; */
+"Lgh-e8-DVd.title" = "Title";
+
+/* Class = "UINavigationItem"; title = "Pages"; ObjectID = "i0c-27-geF"; */
+"i0c-27-geF.title" = "Pages";
+
+/* Class = "UITabBarItem"; badgeValue = "Add"; ObjectID = "k9Y-yy-CBZ"; */
+"k9Y-yy-CBZ.badgeValue" = "Add";
+
+/* Class = "UINavigationItem"; title = "Comics"; ObjectID = "kin-fG-ito"; */
+"kin-fG-ito.title" = "Comics";
