@@ -26,13 +26,13 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
     //moving data
     var currentDragAndDropIndexPath: NSIndexPath?
     var currentDragAndDropSnapShot: UIView?
-    var longpress: UILongPressGestureRecognizer {
-        return UILongPressGestureRecognizer(target: self, action: #selector(PagesCollectionViewController.longPressGestureRecognized(_:)))
-    }
+    var longpress: UILongPressGestureRecognizer?
+    // MARK: - view functions
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        longpress = UILongPressGestureRecognizer(target: self, action: #selector(PagesCollectionViewController.longPressGestureRecognized(_:)))
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -140,7 +140,7 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
             vc.frameViewController.currentPage = currentPage
             
         case "addPage"?:
-            let vc = segue.destinationViewController as! ImageViewController
+            let vc = segue.destinationViewController as! TemplateViewController
             vc.comics = self.currentBook!
         default: break
             
@@ -150,44 +150,33 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
     // MARK: - edit functions
     
     @IBAction func editBook(sender: UIBarButtonItem) {
-        if !editModeEnabled {
-            let spacer = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+        editModeEnabled = !editModeEnabled
+        editButton.title = editModeEnabled ? "Done" : "Edit"
+        editButton.style = editModeEnabled ? .Done : .Plain
+        
+        navigationController?.setToolbarHidden(!editModeEnabled, animated: true)
+        
+        for item in self.collectionView!.visibleCells() as! [PagesCollectionViewCell] {
+            editModeEnabled ? item.shakeIcons() : item.stopShakingIcons()
+            item.selector.hidden  = editModeEnabled ? false : true
+            item.isSelect = false
+        }
+        
+        if editModeEnabled {
             let add = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addPage))
+            let spacer = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
             let delete = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: #selector(deletePages))
             
             toolbarItems = [add, spacer, delete]
-            navigationController?.setToolbarHidden(false, animated: true)
-            
-            //edit button
-            editButton.title = "Done"
-            self.editButton.style = .Done
-            editModeEnabled = true
-        
-            collectionView.addGestureRecognizer(longpress)
-            for item in self.collectionView!.visibleCells() as! [PagesCollectionViewCell] {
-                item.shakeIcons()
-                item.selector.hidden  = false
-                item.isSelect = false
-            }
+            collectionView.addGestureRecognizer(longpress!)
         }
         else {
-            //edit button
-            editButton.title = "Edit"
-            editButton.style = .Plain
-            editModeEnabled = false
-            navigationController?.setToolbarHidden(true, animated: true)
-            collectionView.removeGestureRecognizer(longpress)
-            
-            for item in self.collectionView!.visibleCells() as! [PagesCollectionViewCell] {
-                item.isSelect = false
-                item.selector.hidden  = true
-                item.stopShakingIcons()
-            }
+            collectionView.removeGestureRecognizer(longpress!)
         }
     }
     
     // add new page to comics
-    func addPage() {
+    @IBAction func addPage(sender: UIBarButtonItem) {
         editBook(editButton)
         navigationController?.setToolbarHidden(true, animated: true)
         self.performSegueWithIdentifier("addPage", sender: self)

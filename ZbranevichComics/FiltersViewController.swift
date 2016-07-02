@@ -12,7 +12,7 @@ import UIKit
 import MobileCoreServices
 
 
-class ChouseViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FiltersViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
     
@@ -200,10 +200,9 @@ class ChouseViewController: UIViewController, UICollectionViewDataSource, UIColl
         // Save image
         navigationController?.navigationBar.barTintColor = nil
         navigationController?.navigationBar.titleTextAttributes =  nil
-        let baskViewController = self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - 2] as! ImageViewController
+        let baskViewController = self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - 2] as! TemplateViewController
         baskViewController.callbackImage(previewImageView.image!)
         navigationController?.popViewControllerAnimated(true)
 
     }
 }
-

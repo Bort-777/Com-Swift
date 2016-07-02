@@ -21,7 +21,7 @@ import MobileCoreServices
 import UIKit
 import AVFoundation
 
-class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
+class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
     UICollectionViewDataSource, UICollectionViewDelegate
 {
     
@@ -124,7 +124,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
                 tmp.imageText = textData
             }
             
-            let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageViewController.panGestureDetected(_:)))
+            let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(TemplateViewController.panGestureDetected(_:)))
             panGestureRecognizer.minimumNumberOfTouches = 1
             tmp.addGestureRecognizer(panGestureRecognizer)
             templateContainer.addSubview(tmp)
@@ -210,7 +210,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
 
         
          let image = UIImage(named: "pug3")!
-        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ImageViewController.imageTapped(_:) ))
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(TemplateViewController.imageTapped(_:) ))
         tapGestureRecognizer.numberOfTapsRequired = 1
         imageView.addGestureRecognizer(tapGestureRecognizer)
         
@@ -409,7 +409,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, UIImagePicker
     {
         if segue.identifier == "chouseImage"
         {
-            let vc = segue.destinationViewController as! ChouseViewController
+            let vc = segue.destinationViewController as! FiltersViewController
             vc.selctedImage = curreImage
         }
     }

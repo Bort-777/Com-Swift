@@ -27,7 +27,7 @@
         <!--Comics-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="BYZ-38-t0r" customClass="ImageViewController" customModule="ZbranevichComics" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="BYZ-38-t0r" customClass="TemplateViewController" customModule="ZbranevichComics" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -376,7 +376,7 @@
         <!--Core Image Filter-->
         <scene sceneID="btr-o8-XrF">
             <objects>
-                <viewController id="W9z-7e-Dtd" customClass="ChouseViewController" customModule="ZbranevichComics" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="W9z-7e-Dtd" customClass="FiltersViewController" customModule="ZbranevichComics" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EOM-mD-D8Q"/>
                         <viewControllerLayoutGuide type="bottom" id="BNV-9J-8jt"/>
