@@ -1,81 +1,271 @@
 {
-    "templates": [{
-                  "name": "First",
-                  "struct": [{
-                             "URLname": "John",
-                             "x": 0,
-                             "y": 0,
-                             "width": 1,
-                             "heigth": 1
-                             }]
-                  }, {
-                  "name": "Second",
-                  "struct": [{
-                             "URLname": "John",
-                             "x": 0,
-                             "y": 0,
-                             "width": 1,
-                             "heigth": 0.5
-                             },
-                             {
-                             "URLname": "John",
-                             "x": 0,
-                             "y": 0.5,
-                             "width": 1,
-                             "heigth": 0.5
-                             }]
-                  }, {
-                  "name": "3th",
-                  "struct": [{
-                             "URLname": "John",
-                             "x": 0,
-                             "y": 0,
-                             "width": 1,
-                             "heigth": 0.5
-                             },
-                             {
-                             "URLname": "John",
-                             "x": 0,
-                             "y": 0.5,
-                             "width": 0.5,
-                             "heigth": 0.5
-                             },
-                             {
-                             "URLname": "John",
-                             "x": 0.5,
-                             "y": 0.5,
-                             "width": 0.5,
-                             "heigth": 0.5
-                             }]
-                  }, {
-                  "name": "3th",
-                  "struct": [{
-                             "URLname": "John",
-                             "x": 0,
-                             "y": 0,
-                             "width": 0.5,
-                             "heigth": 0.5
-                             },
-                             {
-                             "URLname": "John",
-                             "x": 0,
-                             "y": 0.5,
-                             "width": 0.5,
-                             "heigth": 0.5
-                             },
-                             {
-                             "URLname": "John",
-                             "x": 0.5,
-                             "y": 0,
-                             "width": 0.5,
-                             "heigth": 0.5
-                             },
-                             {
-                             "URLname": "John",
-                             "x": 0.5,
-                             "y": 0.5,
-                             "width": 0.5,
-                             "heigth": 0.5
-                             }]
-                  }]
+  "templates": [
+    {
+      "name": "temp1",
+      "struct": [
+        {
+          "URLname": "temp1",
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "heigth": 1
+        }
+      ]
+    },
+    {
+      "name": "temp2",
+      "struct": [
+        {
+          "URLname": "temp2",
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "heigth": 0.5
+        },
+        {
+          "URLname": "temp2",
+          "x": 0,
+          "y": 0.5,
+          "width": 1,
+          "heigth": 0.5
+        }
+      ]
+    },
+    {
+      "name": "temp3",
+      "struct": [
+        {
+          "URLname": "temp3",
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "heigth": 0.5
+        },
+        {
+          "URLname": "temp3",
+          "x": 0,
+          "y": 0.5,
+          "width": 0.5,
+          "heigth": 0.5
+        },
+        {
+          "URLname": "temp3",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.5,
+          "heigth": 0.5
+        }
+      ]
+    },
+    {
+      "name": "temp4",
+      "struct": [
+        {
+          "URLname": "temp4",
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "heigth": 0.33
+        },
+        {
+          "URLname": "temp4",
+          "x": 0,
+          "y": 0.33,
+          "width": 1,
+          "heigth": 0.33
+        },
+        {
+          "URLname": "temp4",
+          "x": 0,
+          "y": 0.66,
+          "width": 1,
+          "heigth": 0.33
+        }
+      ]
+    },
+    {
+      "name": "temp5",
+      "struct": [
+        {
+          "URLname": "temp5",
+          "x": 0,
+          "y": 0,
+          "width": 0.5,
+          "heigth": 0.5
+        },
+        {
+          "URLname": "temp5",
+          "x": 0,
+          "y": 0.5,
+          "width": 0.5,
+          "heigth": 0.5
+        },
+        {
+          "URLname": "temp5",
+          "x": 0.5,
+          "y": 0,
+          "width": 0.5,
+          "heigth": 0.5
+        },
+        {
+          "URLname": "temp5",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.5,
+          "heigth": 0.5
+        }
+      ]
+    },
+    {
+      "name": "temp6",
+      "struct": [
+        {
+          "URLname": "temp6",
+          "x": 0,
+          "y": 0,
+          "width": 0.5,
+          "heigth": 0.5
+        },
+        {
+          "URLname": "temp6",
+          "x": 0.5,
+          "y": 0,
+          "width": 0.5,
+          "heigth": 0.5
+        },
+        {
+          "URLname": "temp6",
+          "x": 0,
+          "y": 0.5,
+          "width": 1,
+          "heigth": 0.5
+        }
+      ]
+    },
+    {
+      "name": "temp7",
+      "struct": [
+        {
+          "URLname": "temp7",
+          "x": 0,
+          "y": 0,
+          "width": 0.5,
+          "heigth": 1
+        },
+        {
+          "URLname": "temp7",
+          "x": 0.5,
+          "y": 0,
+          "width": 0.5,
+          "heigth": 0.5
+        },
+        {
+          "URLname": "temp7",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 0.5,
+          "heigth": 0.5
+        }
+      ]
+    },
+    {
+      "name": "temp8",
+      "struct": [
+        {
+          "URLname": "temp8",
+          "x": 0,
+          "y": 0,
+          "width": 0.5,
+          "heigth": 0.5
+        },
+        {
+          "URLname": "temp8",
+          "x": 0.5,
+          "y": 0,
+          "width": 0.5,
+          "heigth": 1
+        },
+        {
+          "URLname": "temp8",
+          "x": 0,
+          "y": 0.5,
+          "width": 0.5,
+          "heigth": 0.5
+        }
+      ]
+    },
+    {
+      "name": "temp9",
+      "struct": [
+        {
+          "URLname": "temp9",
+          "x": 0,
+          "y": 0,
+          "width": 0.33,
+          "heigth": 1
+        },
+        {
+          "URLname": "temp9",
+          "x": 0.33,
+          "y": 0,
+          "width": 0.33,
+          "heigth": 1
+        },
+        {
+          "URLname": "temp9",
+          "x": 0.66,
+          "y": 0,
+          "width": 0.33,
+          "heigth": 1
+        }
+      ]
+    },
+    {
+      "name": "temp10",
+      "struct": [
+        {
+          "URLname": "temp10",
+          "x": 0,
+          "y": 0,
+          "width": 0.5,
+          "heigth": 0.33
+        },
+        {
+          "URLname": "temp10",
+          "x": 0.5,
+          "y": 0,
+          "width": 0.5,
+          "heigth": 0.33
+        },
+        {
+          "URLname": "temp10",
+          "x": 0,
+          "y": 0.33,
+          "width": 0.5,
+          "heigth": 0.33
+        },
+        {
+          "URLname": "temp10",
+          "x": 0.5,
+          "y": 0.33,
+          "width": 0.5,
+          "heigth": 0.33
+        },
+        {
+          "URLname": "temp10",
+          "x": 0,
+          "y": 0.66,
+          "width": 0.5,
+          "heigth": 0.33
+        },
+        {
+          "URLname": "temp10",
+          "x": 0.5,
+          "y": 0.66,
+          "width": 0.5,
+          "heigth": 0.33
+        }
+      ]
+    }
+  ]
 }
