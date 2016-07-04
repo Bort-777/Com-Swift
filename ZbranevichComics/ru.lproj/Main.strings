@@ -1,12 +1,12 @@
 
 /* Class = "UIBarButtonItem"; title = "Edit"; ObjectID = "2LI-Jd-TFj"; */
-"2LI-Jd-TFj.title" = "Edit";
+"2LI-Jd-TFj.title" = "Изменить";
 
 /* Class = "UIBarButtonItem"; title = "Edit"; ObjectID = "5a0-P5-dBh"; */
-"5a0-P5-dBh.title" = "Edit";
+"5a0-P5-dBh.title" = "Изменить";
 
-/* Class = "UINavigationItem"; title = "Comics"; ObjectID = "7Bp-Pw-FRa"; */
-"7Bp-Pw-FRa.title" = "Comics";
+/* Class = "UINavigationItem"; title = "Page"; ObjectID = "7Bp-Pw-FRa"; */
+"7Bp-Pw-FRa.title" = "Создание";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "942-4z-kuI"; */
 "942-4z-kuI.normalTitle" = "Button";
@@ -21,10 +21,10 @@
 "Lgh-e8-DVd.title" = "Title";
 
 /* Class = "UINavigationItem"; title = "Pages"; ObjectID = "i0c-27-geF"; */
-"i0c-27-geF.title" = "Pages";
+"i0c-27-geF.title" = "Страницы";
 
 /* Class = "UITabBarItem"; badgeValue = "Add"; ObjectID = "k9Y-yy-CBZ"; */
-"k9Y-yy-CBZ.badgeValue" = "Add";
+"k9Y-yy-CBZ.badgeValue" = "Добавить";
 
 /* Class = "UINavigationItem"; title = "Comics"; ObjectID = "kin-fG-ito"; */
-"kin-fG-ito.title" = "Comics";
+"kin-fG-ito.title" = "Комиксы";

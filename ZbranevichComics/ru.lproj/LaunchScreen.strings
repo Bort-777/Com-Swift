@@ -1,6 +1,6 @@
 
-/* Class = "UILabel"; text = "Курсовая for Itransition"; ObjectID = "LL7-xY-Nar"; */
-"LL7-xY-Nar.text" = "Курсовая for Itransition";
+/* Class = "UILabel"; text = "Demo app for Itransition"; ObjectID = "LL7-xY-Nar"; */
+"LL7-xY-Nar.text" = "Demo app for Itransition";
 
-/* Class = "UILabel"; text = "SwiftyComics апп"; ObjectID = "sXM-wn-Td4"; */
-"sXM-wn-Td4.text" = "SwiftyComics апп";
+/* Class = "UILabel"; text = "My Comics"; ObjectID = "sXM-wn-Td4"; */
+"sXM-wn-Td4.text" = "My Comics";

@@ -14,8 +14,6 @@ struct MyFrame {
     var heigth : CGFloat
 }
 
-
-
 import UIKit
 import MobileCoreServices
 import UIKit
@@ -29,7 +27,7 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
     
     var load = false
     var imageSet: [[String: AnyObject]] = []
-    var templates: [[String: AnyObject]]? = nil
+    var collectionItems: [[String: AnyObject]]? = nil
     var media = [NSURL]()
 
     var templateContainer: UIView!
@@ -37,7 +35,7 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     @IBOutlet weak var mainView: UIView!
-    var first = true;
+    var templateMode = true;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,84 +49,22 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
         
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        if first {
-         return templates!.count
-        }
-        else {
-            return templates!.count
+        if segue.identifier == "chouseImage"
+        {
+            let vc = segue.destinationViewController as! FiltersViewController
+            vc.selctedImage = curreImage
         }
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
-    {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
+    func createTemplateView() {
+        let width = mainView.bounds.width
+        let height = width
         
-        if first {
-            for aa in cell.subviews {
-                aa.removeFromSuperview()
-            }
-            let iv = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.width))
-
-            iv.image = UIImage(named: "pug2")
-            cell.addSubview(iv)
-        }
-        else {
-            for aa in cell.subviews {
-                aa.removeFromSuperview()
-            }
-            let iv = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.width))
-            let imageName = templates![indexPath.row]["name"] as? String
-            
-            iv.image = UIImage(named: imageName!)
-            cell.addSubview(iv)
-
-
-        }
-        
-        return cell
-        
-    }
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
-    {
-        if first {
-            let template = templates![indexPath.row]["struct"]
-            
-            self.imageSet = template as! [[String : AnyObject]]
-            if load == false {
-                imagePicker.delegate = self
-                createTemplateView()
-                for viewPart in imageSet {
-                    createScrollView(viewPart)
-                }
-                load = true
-                collectionView.reloadData()
-            }
-            first = false;
-            saveButton.enabled = true
-            loadJSONCloud()
-        }
-        else {
-            let dataFrame =  templates![indexPath.row]["frame"]
-            
-
-            let tmp = Cloud(frame: CGRect(x: dataFrame!["x"] as! CGFloat,
-                y: dataFrame!["y"] as! CGFloat,
-                width: dataFrame!["width"] as! CGFloat,
-                height: dataFrame!["height"] as! CGFloat
-                ))
-            tmp.imageName = templates![indexPath.row]["name"] as? String
-            if let textData = templates![indexPath.row]["text"] as? [String : AnyObject] {
-                tmp.imageText = textData
-            }
-            
-            let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(TemplateViewController.panGestureDetected(_:)))
-            panGestureRecognizer.minimumNumberOfTouches = 1
-            tmp.addGestureRecognizer(panGestureRecognizer)
-            templateContainer.addSubview(tmp)
-        }
+        templateContainer = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        mainView.addSubview(templateContainer)
+        templateContainer.addSubview(UIView())//?????????????????
     }
     
     func loadJSONTemplates() {
@@ -138,31 +74,98 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
             let object = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
             if let dictionary = object as? [String: AnyObject] {
                 guard
-                let templates = dictionary["templates"] as? [[String: AnyObject]] else { print("err");return }
-                self.templates = templates
+                    let templates = dictionary["templates"] as? [[String: AnyObject]] else { print("err");return }
+                self.collectionItems = templates
             }
         } catch {
             // Handle Error
         }
     }
     
+    // MARK: collection view delegate function
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return collectionItems!.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
+        for aa in cell.subviews {
+            aa.removeFromSuperview()
+        }
+        let iv = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.width))
+        let imageName = collectionItems![indexPath.row]["name"] as? String
+            
+        iv.image = UIImage(named: imageName!)
+        cell.addSubview(iv)
+        
+        return cell
+        
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        if templateMode {
+            // set template property
+            let template = collectionItems![indexPath.row]["struct"]
+            
+            self.imageSet = template as! [[String : AnyObject]]
+            imagePicker.delegate = self
+            
+            // creator
+            createTemplateView()
+            
+            for viewPart in imageSet {
+                createScrollView(viewPart)
+            }
+            collectionView.reloadData()
+
+            templateMode = !templateMode
+            saveButton.enabled = true
+            loadJSONCloud()
+        }
+        else {
+            // set cloud property
+            let dataFrame =  collectionItems![indexPath.row]["frame"]
+            let newCloud = Cloud(frame: CGRect(x: dataFrame!["x"] as! CGFloat,
+                y: dataFrame!["y"] as! CGFloat,
+                width: dataFrame!["width"] as! CGFloat,
+                height: dataFrame!["height"] as! CGFloat
+                ))
+            newCloud.imageName = collectionItems![indexPath.row]["name"] as? String
+            templateContainer.addSubview(newCloud)
+
+            
+            // add text if need
+            if let textData = collectionItems![indexPath.row]["text"] as? [String : AnyObject] {
+                newCloud.imageText = textData
+            }
+        
+            let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(TemplateViewController.panGestureDetected(_:)))
+            panGestureRecognizer.minimumNumberOfTouches = 1
+            newCloud.addGestureRecognizer(panGestureRecognizer)
+        }
+    }
+    
+    // load json for cloud image
     func loadJSONCloud() {
-        let url = NSBundle.mainBundle().URLForResource("sticker", withExtension: "json")
+        let url = NSBundle.mainBundle().URLForResource("Sticker", withExtension: "json")
         let data = NSData(contentsOfURL: url!)
         do {
             let object = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
             if let dictionary = object as? [String: AnyObject] {
                 guard
                     let templates = dictionary["clouds"] as? [[String: AnyObject]] else { print("err");return }
-                self.templates = templates
+                self.collectionItems = templates
             }
         } catch {
             // Handle Error
         }
     }
     
-  
-    
+    // cloud delegate func
     func panGestureDetected(sender: UIPanGestureRecognizer) {
         let translation = sender.translationInView(self.templateContainer)
         
@@ -177,49 +180,42 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
         sender.setTranslation(CGPointZero, inView: self.templateContainer)
     }
     
-    func createTemplateView() {
-        let width = mainView.bounds.width
-        let height = width
-        templateContainer = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        mainView.addSubview(templateContainer)
-        templateContainer.addSubview(UIView())//?????????????????
-    }
-    
-    
-    //MARK: - TemplateControll
+    //MARK: - create template
     
     func createScrollView(dataOfView: [String: AnyObject]) {
+        // get data from json
         guard
         let dataX = dataOfView["x"] as? CGFloat,
         let dataY = dataOfView["y"] as? CGFloat,
         let dataWidth = dataOfView["width"] as? CGFloat,
         let dataHeight = dataOfView["heigth"] as? CGFloat else { return }
         
+        // set scroll frame property
         let x = mainView.bounds.width * dataX
         let y = mainView.bounds.width * dataY
         let width = mainView.bounds.width * dataWidth
         let height = mainView.bounds.width * dataHeight
-        
         let imageView = UIImageView()
-        
         let scrollView = UIScrollView(frame: CGRect(x: x, y: y, width: width, height: height))
+        let image = UIImage(named: "background")!
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(TemplateViewController.imageTapped(_:) ))
         
         scrollView.delegate = self
-        scrollView.layer.borderWidth = 2
+        scrollView.layer.borderWidth = 1
         scrollView.addSubview(imageView)
 
-        
-         let image = UIImage(named: "pug3")!
-        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(TemplateViewController.imageTapped(_:) ))
         tapGestureRecognizer.numberOfTapsRequired = 1
         imageView.addGestureRecognizer(tapGestureRecognizer)
         
-        insertImage(scrollView , image: image)
-        
+        // insert template in view
         templateContainer.addSubview(scrollView)
         
-        }
+        // insert image in template
+        insertImage(scrollView , image: image)
+    }
     
+    
+    // MARK: scroll zoom delegate function
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return scrollView.subviews.first! as UIView
@@ -250,35 +246,35 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
         
     }
     
+    // MARK: - insert in scroll functions
+    
     func insertImage(scrollView: UIScrollView, image: UIImage)
     {
         
         let imageView = scrollView.subviews.first as! UIImageView
-        imageView.frame = CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height)
-        imageView.contentMode = UIViewContentMode.Center
-        //scrollView.userInteractionEnabled = true
-        imageView.userInteractionEnabled = true
-        
-        
-        imageView.image = image
-        imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height)
-        scrollView.contentSize = image.size
-        
-        
-        
-        
-        
         let scrollViewFrame = scrollView.frame
+        
+        scrollView.contentSize = image.size
+
         let scaleWidth = scrollViewFrame.size.width / scrollView.contentSize.width
         let scaleHeight = scrollViewFrame.size.height / scrollView.contentSize.height
         let minScale = min(scaleHeight, scaleWidth)
-        scrollView.contentSize = image.size
+        
+        // set imageView property
+        imageView.frame = CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height)
+        imageView.contentMode = UIViewContentMode.Center
+        imageView.userInteractionEnabled = true
+        imageView.image = image
+        imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height)
+        
+        // set scroll property
         scrollView.minimumZoomScale = minScale
         scrollView.maximumZoomScale = 1
         scrollView.zoomScale = 1
         
         centerScrollViewContents(scrollView, imageView: imageView)
         
+        // tag scroll
         if scrollView.tag == 0 {
             media.append(NSURL())
             scrollView.tag = media.count
@@ -289,6 +285,7 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
     
     func insertVideo(scrollView: UIScrollView, videoURL: NSURL)
     {
+        // create screenshoot
         let imageView = scrollView.subviews.first as! UIImageView
         var uiImage = UIImage()
         do {
@@ -301,41 +298,65 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
             print("Error generating thumbnail: \(error)")
         }
         
-        
+        // set imageView property
         imageView.frame = CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height)
         imageView.contentMode = UIViewContentMode.ScaleAspectFit
-        //scrollView.userInteractionEnabled = true
         imageView.userInteractionEnabled = true
-        
-        
         imageView.image = uiImage
-
-
         scrollView.minimumZoomScale = 1
         scrollView.zoomScale = 1
         
-        
+        // tag scroll
         media[scrollView.tag - 1] = videoURL
+    }
+    
+    //MARK: - Tapped functions
+    
+    func imageTapped(img: UITapGestureRecognizer)
+    {
+        let alertController = UIAlertController(title: NSLocalizedString("SETMEDIA", comment: "set media"), message: nil, preferredStyle: .ActionSheet)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "set media"), style: .Cancel) { (action) in }
+        let photoAction = UIAlertAction(title: NSLocalizedString("LIBRARY", comment: "set media"), style: .Default) { (action) in
+            self.currPicker = (img.view as! UIImageView).superview as! UIScrollView
+            self.showPhotoGallery()
+        }
+
+        alertController.addAction(photoAction)
+        alertController.addAction(cancelAction)
         
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    // Show photo gallery to choose image
+    private func showPhotoGallery() -> Void {
         
-}
-    
-    
-
-
-
-
-    
-// MARK: - UIImagePickerControllerDelegate Method
+         // show picker to select image form gallery
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum) {
+            
+            // create image picker
+            let imagePicker = UIImagePickerController()
+            
+            // set image picker property
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
+            imagePicker.mediaTypes = ["public.image", "public.movie"]
+            imagePicker.allowsEditing = false
+            
+            
+            // show image picker
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
+    }
+ 
+    // MARK: - UIImagePickerControllerDelegate Method
     
     var currPicker = UIScrollView()
     private var curreImage = UIImage()
     let imagePicker = UIImagePickerController()
-
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
         // dismiss image picker controller
-        
         let mediaType = info[UIImagePickerControllerMediaType] as! NSString
         
         dismissViewControllerAnimated(true) {
@@ -365,57 +386,7 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
     }
 
     
-    func imageTapped(img: UITapGestureRecognizer)
-    {
-        let alertController = UIAlertController(title: "Set media", message: nil, preferredStyle: .ActionSheet)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in }
-        let photoAction = UIAlertAction(title: "Library", style: .Default) { (action) in
-            self.currPicker = (img.view as! UIImageView).superview as! UIScrollView
-            self.showPhotoGallery()
-        }
-
-        alertController.addAction(photoAction)
-        alertController.addAction(cancelAction)
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    // Show photo gallery to choose image
-    private func showPhotoGallery() -> Void {
-        
-         // show picker to select image form gallery
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum) {
-            
-            // create image picker
-            let imagePicker = UIImagePickerController()
-            
-            // set image picker property
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
-            imagePicker.mediaTypes = ["public.image", "public.movie"]
-            imagePicker.allowsEditing = false
-            
-            
-            // show image picker
-            self.presentViewController(imagePicker, animated: true, completion: nil)
-            
-        }else{
-            self.showAlertMessage(alertTitle: "Not Supported", alertMessage: "Device can not access gallery.")
-        }
-        
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
-    {
-        if segue.identifier == "chouseImage"
-        {
-            let vc = segue.destinationViewController as! FiltersViewController
-            vc.selctedImage = curreImage
-        }
-    }
-
-    
-    //MARK: - Realm
+    //MARK: - Save page to Realm
     
     let page = Page()
     var comics = Book()
@@ -436,17 +407,19 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
         try! uiRealm.write {
             page.id = Int(arc4random_uniform(600)+1)
         
+            // Save image:
             let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
-            print(pathDocuments)
             let pathImage = "\(pathDocuments)/\(page.id).jpg"
         
             templateContainer.saveImageFromView(path: pathImage)
             page.URL = pathImage
 
+            // Save video:
             for subScrolls in templateContainer.subviews
             {
                 if let scroll = subScrolls as? UIScrollView
                 {
+                    // find video in all scroll
                     if media[scroll.tag - 1].absoluteString != ""
                     {
                         let video = Media()
@@ -459,17 +432,12 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
                     }
                 }
             }
-        
-        
-
             comics.page.append(page)
-        
         }
-        
-     
         navigationController?.popViewControllerAnimated(true)
     }
     
+    // moveing video to local folder
     func saveLocalVideo (localPatch: NSURL) -> Int {
         let videoID =  Int(arc4random_uniform(600)+1)
         let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
@@ -480,21 +448,7 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
         print(pathVideo)
         return videoID
     }
-    
-    func showAlertMessage(alertTitle alertTitle: String, alertMessage: String) {
-        
-        let myAlertVC = UIAlertController( title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-        
-        myAlertVC.addAction(okAction)
-        
-        self.presentViewController(myAlertVC, animated: true, completion: nil)
-    }
 }
-
-
-
 
 extension UIView {
     func saveImageFromView(path path:String) {

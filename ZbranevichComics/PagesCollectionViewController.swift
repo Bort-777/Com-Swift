@@ -151,7 +151,7 @@ class PagesCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     @IBAction func editBook(sender: UIBarButtonItem) {
         editModeEnabled = !editModeEnabled
-        editButton.title = editModeEnabled ? "Done" : "Edit"
+        editButton.title = editModeEnabled ? NSLocalizedString("DONE", comment: "done buttom") : NSLocalizedString("EDIT", comment: "edit buttom")
         editButton.style = editModeEnabled ? .Done : .Plain
         
         navigationController?.setToolbarHidden(!editModeEnabled, animated: true)

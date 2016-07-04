@@ -1,9 +1,25 @@
 /* 
-  Localization.strings
+  Localizable.strings
   ZbranevichComics
 
   Created by user on 7/2/16.
   Copyright © 2016 itransition. All rights reserved.
 */
 
-PAGE = "страниц";
+PAGE = "стр";
+EDIT = "Изменить";
+DONE = "Готово";
+SAVE = "Сохранить";
+CANCEL = "Отмена";
+NEWCOMICS = "Новый комикс";
+NAMETHISCOMICS = "Название комикса";
+TITLE = "Введите название";
+SETMEDIA = "Выбор файла";
+LIBRARY = "Галерея";
+ACCOUNTS = "Аккаунт";
+ACCOUNTSLOGINERROR = "Пожалуйста, авторизируйтесь";
+
+FACEBOOK = "Фэйсбук";
+TWITTER = "Твитор";
+DROPBOX = "Dropbox";
+

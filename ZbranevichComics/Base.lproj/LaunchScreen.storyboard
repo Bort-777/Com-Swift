@@ -17,11 +17,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SwiftyComics" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="sXM-wn-Td4">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Comics" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="sXM-wn-Td4">
                                 <rect key="frame" x="171" y="92" width="256" height="43"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="256" id="EWm-4F-2WJ"/>
-                                    <constraint firstAttribute="height" constant="43" id="IXK-7s-XmX"/>
+                                    <constraint firstAttribute="width" constant="256" id="MXs-tV-PrR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -33,22 +32,13 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="MEu-fH-oMJ" userLabel="watchfox">
-                                <rect key="frame" x="220" y="225" width="159" height="149"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="159" id="C5T-LH-cnT"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="sXM-wn-Td4" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="72" id="I7K-Xe-4ff"/>
-                            <constraint firstItem="MEu-fH-oMJ" firstAttribute="centerX" secondItem="LL7-xY-Nar" secondAttribute="centerX" id="W7i-e6-saC"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="LL7-xY-Nar" secondAttribute="bottom" constant="74" id="aI1-VO-aze"/>
-                            <constraint firstItem="MEu-fH-oMJ" firstAttribute="centerX" secondItem="aTm-HG-zzz" secondAttribute="centerX" id="d56-96-ee4"/>
-                            <constraint firstItem="sXM-wn-Td4" firstAttribute="centerX" secondItem="MEu-fH-oMJ" secondAttribute="centerX" id="dpe-rS-zqp"/>
-                            <constraint firstItem="MEu-fH-oMJ" firstAttribute="centerY" secondItem="aTm-HG-zzz" secondAttribute="centerY" id="nLp-eG-6Tm"/>
-                            <constraint firstItem="MEu-fH-oMJ" firstAttribute="top" secondItem="sXM-wn-Td4" secondAttribute="bottom" constant="90" id="pBU-1A-Gbf"/>
+                            <constraint firstItem="LL7-xY-Nar" firstAttribute="centerX" secondItem="aTm-HG-zzz" secondAttribute="centerX" id="QRC-hc-Pbc"/>
+                            <constraint firstItem="sXM-wn-Td4" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="72" id="RVn-3w-ZNh"/>
+                            <constraint firstItem="sXM-wn-Td4" firstAttribute="centerX" secondItem="LL7-xY-Nar" secondAttribute="centerX" id="dqf-Ab-3Nq"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="LL7-xY-Nar" secondAttribute="bottom" constant="74" id="rOz-Rz-2z5"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -57,7 +47,4 @@
             <point key="canvasLocation" x="674" y="-115"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="1" width="256" height="256"/>
-    </resources>
 </document>

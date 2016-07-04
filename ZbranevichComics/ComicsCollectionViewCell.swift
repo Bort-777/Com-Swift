@@ -25,10 +25,10 @@ class ComicsCollectionViewCell: UICollectionViewCell, UITextFieldDelegate
                 imageView.image = loadImage(firstPage.id)
             }
             else {
-                imageView.image = UIImage(named: "pug")
+                imageView.image = UIImage(named: "folder-icon")
             }
             titleLabel.text = currentBook!.name
-            numPagesLabel.text = "\(currentBook!.page.count) page(s)"
+            numPagesLabel.text = "\(currentBook!.page.count) " + NSLocalizedString("PAGE", comment: "page buttom")
         }
     }
 

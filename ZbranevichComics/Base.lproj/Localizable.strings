@@ -8,3 +8,18 @@
 
 PAGE = "page(s)";
 EDIT = "Edit";
+DONE = "Done";
+SAVE = "Save";
+CANCEL = "Cancel";
+NEWCOMICS = "New comics";
+NAMETHISCOMICS = "Name this comics";
+TITLE = "Title";
+SETMEDIA = "Set media";
+LIBRARY = "Library";
+ACCOUNTS = "Accounts";
+ACCOUNTSLOGINERROR = "Please login to account to share";
+
+FACEBOOK = "Facebook";
+TWITTER = "Twitter";
+DROPBOX = "Dropbox";
+

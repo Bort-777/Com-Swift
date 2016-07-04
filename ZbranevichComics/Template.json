@@ -5,9 +5,9 @@
       "struct": [
         {
           "URLname": "temp1",
-          "x": 0,
+          "x": 0.5,
           "y": 0,
-          "width": 1,
+          "width": 0.5,
           "heigth": 1
         }
       ]

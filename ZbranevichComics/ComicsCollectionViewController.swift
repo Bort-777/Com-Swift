@@ -67,8 +67,7 @@ class ComicsCollectionViewController: UIViewController, UICollectionViewDataSour
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        if segue.identifier == "showPages"
-        {
+        if segue.identifier == "showPages" {
             let indexPaths = self.collectionView!.indexPathsForSelectedItems()!
             let indexPath = indexPaths[0] as NSIndexPath
             let vc = segue.destinationViewController as! PagesCollectionViewController
@@ -79,9 +78,15 @@ class ComicsCollectionViewController: UIViewController, UICollectionViewDataSour
     
     // MARK: - edit books functions
     
-    func addBook() {
-        let alertController = UIAlertController(title: "New comics", message: "Name this comic", preferredStyle: .Alert)
-        let confirmAction = UIAlertAction(title: "Save", style: .Default) { (_) in
+    @IBAction func addBook(sender: UIBarButtonItem) {
+        let saveString = NSLocalizedString("SAVE", comment: "save buttom")
+        let cancelString = NSLocalizedString("CANCEL", comment: "cancel buttom")
+        let titleString = NSLocalizedString("NEWCOMICS", comment: "newcomics text")
+        let messageString = NSLocalizedString("NAMETHISCOMICS", comment: "newcomics text")
+        let fieldString = NSLocalizedString("TITLE", comment: "title text")
+        
+        let alertController = UIAlertController(title: titleString, message: messageString, preferredStyle: .Alert)
+        let confirmAction = UIAlertAction(title: saveString, style: .Default) { (_) in
             if let field = alertController.textFields!.first {
                 // store your data
                 let newComics = Book()
@@ -100,10 +105,10 @@ class ComicsCollectionViewController: UIViewController, UICollectionViewDataSour
                 // user did not fill field
             }
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+        let cancelAction = UIAlertAction(title: cancelString, style: .Cancel) { (_) in }
         
         alertController.addTextFieldWithConfigurationHandler { (textField) in
-            textField.placeholder = "Title"
+            textField.placeholder = fieldString
         }
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
@@ -115,7 +120,7 @@ class ComicsCollectionViewController: UIViewController, UICollectionViewDataSour
     @IBAction func editBook(sender: UIBarButtonItem) {
         editModeEnabled = !editModeEnabled
         
-        editButton.title = editModeEnabled ? "Done" : "Edit"
+        editButton.title = editModeEnabled ? NSLocalizedString("DONE", comment: "done buttom") : NSLocalizedString("EDIT", comment: "edit buttom")
         editButton.style = editModeEnabled ? .Done : .Plain
         
         for item in self.collectionView!.visibleCells() as! [ComicsCollectionViewCell] {

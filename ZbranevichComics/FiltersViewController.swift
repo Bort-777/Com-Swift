@@ -81,7 +81,7 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func loadJSON() -> [String] {
-        let url = NSBundle.mainBundle().URLForResource("filters", withExtension: "json")
+        let url = NSBundle.mainBundle().URLForResource("Filters", withExtension: "json")
         let data = NSData(contentsOfURL: url!)
         do {
             let object = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
@@ -124,13 +124,11 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
-        
-        cell.backgroundColor = UIColor.blueColor()
         let tmp = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.width))
-        //tmp.image = self.applyFilter(selectedImage: imageSmall,
-        //                             selectedFilterIndex: indexPath.row)
-        tmp.image = UIImage(named: "pug3")
-
+        let filterName = self.filterNameList[indexPath.row]
+        
+        tmp.image = UIImage(named: filterName)
+        cell.backgroundColor = UIColor.blueColor()
         cell.addSubview(tmp)
 
         return cell
@@ -143,7 +141,7 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
         {
         
         // call funtion to apply the selected filter
-            self.previewImageView.image = self.applyFilter(selectedImage: self.selctedImage,selectedFilterIndex: indexPath.row)
+            self.previewImageView.image = self.applyFilter(selectedImage: self.selctedImage, selectedFilterIndex: indexPath.row)
     }
     
     
@@ -168,7 +166,6 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
             // set image selected image
             return image
         }
-        
         
         // Create and apply filter
         // 1 - create source image

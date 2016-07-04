@@ -102,21 +102,27 @@ class PagesViewController: UIPageViewController, UIPageViewControllerDataSource 
     // MARK: - actions
     
     @IBAction func shareAction(sender: AnyObject) {
+        let FacebookString = NSLocalizedString("FACEBOOK", comment: "FACEBOOK buttom")
+        let TwitterString = NSLocalizedString("TWITTER", comment: "TWITTER buttom")
+        let DropboxString = NSLocalizedString("DROPBOX", comment: "DROPBOX buttom")
+        
 
         let optionMenu = UIAlertController(title: nil, message: "Share to", preferredStyle: .ActionSheet)
-        let facebookAction = UIAlertAction(title: "Facebook", style: .Default, handler: {
+        let facebookAction = UIAlertAction(title: FacebookString, style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.shareSLComposeView(SLServiceTypeFacebook)
         })
-        let twitterAction = UIAlertAction(title: "Twitter", style: .Default, handler: {
+        let twitterAction = UIAlertAction(title: TwitterString, style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.shareSLComposeView(SLServiceTypeTwitter)
         })
-        let dropboxAction = UIAlertAction(title: "Dropbox", style: .Default, handler: {
+        let dropboxAction = UIAlertAction(title: DropboxString, style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.authorizedDropbox()
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "accounts buttom"),
+                                         style: .Cancel,
+                                         handler: {
             (alert: UIAlertAction!) -> Void in
         })
         
@@ -143,7 +149,9 @@ class PagesViewController: UIPageViewController, UIPageViewControllerDataSource 
             self.presentViewController(twShare, animated: true, completion: nil)
             
         } else {
-            let alert = UIAlertController(title: "Accounts", message: "Please login to account to share.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: NSLocalizedString("ACCOUNTS", comment: "accounts buttom"),
+                                          message: NSLocalizedString("ACCOUNTSLOGINERROR", comment: "accounts buttom"),
+                                          preferredStyle: UIAlertControllerStyle.Alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             
