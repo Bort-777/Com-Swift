@@ -18,7 +18,7 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
     
     // Outlet & action - cancel button
     @IBOutlet var cancelButton: UIBarButtonItem!
-    @IBAction func cancelButtonAction(sender: AnyObject) {
+    @IBAction func cancelButtonAction(_ sender: AnyObject) {
         // show action shee to choose image source.
         self.showImageSourceActionSheet()
     }
@@ -26,7 +26,7 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
     
     // Outlet & action - save button
     @IBOutlet var saveButton: UIBarButtonItem!
-    @IBAction func saveButtonAction(sender: UIBarButtonItem) {
+    @IBAction func saveButtonAction(_ sender: UIBarButtonItem) {
         // save image to photo gallery
         self.saveImageToPhotoGallery()
     }
@@ -56,8 +56,8 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        navigationController?.navigationBar.barTintColor = UIColor.darkGrayColor()
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.orangeColor()]
+        navigationController?.navigationBar.barTintColor = UIColor.darkGray
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.orange]
         
         // set filter name list array.
         self.filterNameList = loadJSON()
@@ -67,7 +67,7 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
         self.filterCollection.dataSource = self
         
         // disable filter pickerView
-        self.filterCollection.userInteractionEnabled = true
+        self.filterCollection.isUserInteractionEnabled = true
         
         previewImageView.image = selctedImage
         
@@ -81,10 +81,10 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func loadJSON() -> [String] {
-        let url = NSBundle.mainBundle().URLForResource("Filters", withExtension: "json")
-        let data = NSData(contentsOfURL: url!)
+        let url = Bundle.main.url(forResource: "Filters", withExtension: "json")
+        let data = try? Data(contentsOf: url!)
         do {
-            let object = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+            let object = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
             if let dictionary = object as? [String: AnyObject] {
                 guard
                     let templates = dictionary["filterNameList"] as? [String] else { return [] }
@@ -103,10 +103,10 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
     // set selected image in preview
         
     // Close image picker
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         
         // dismiss image picker controller
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
     
     
@@ -115,20 +115,20 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
     // MARK: - picker view delegate and data source (to choose filter name)
     
     // how many component (i.e. column) to be displayed within picker view
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         return self.filterNameList.count
     }
     
     // title/content for row in given component
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         let tmp = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.width))
         let filterName = self.filterNameList[indexPath.row]
         
         tmp.image = UIImage(named: filterName)
-        cell.backgroundColor = UIColor.blueColor()
+        cell.backgroundColor = UIColor.blue
         cell.addSubview(tmp)
 
         return cell
@@ -137,7 +137,7 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
 
     
     // called when row selected from any component within picker view
-        func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
         {
         
         // call funtion to apply the selected filter
@@ -150,15 +150,15 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
     // MARK: - Utility functions {
     
     // Show action sheet for image source selection
-    private func showImageSourceActionSheet() {
+    fileprivate func showImageSourceActionSheet() {
         navigationController?.navigationBar.barTintColor = nil
         navigationController?.navigationBar.titleTextAttributes =  nil
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
         
     }
     
     // apply filter to current image
-    private func applyFilter(selectedImage image: UIImage,selectedFilterIndex filterIndex: Int) -> UIImage {
+    fileprivate func applyFilter(selectedImage image: UIImage,selectedFilterIndex filterIndex: Int) -> UIImage {
         
         
         // if No filter selected then apply default image and return.
@@ -182,10 +182,10 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
         let context = CIContext(options: nil)
         
         // 5 - output filtered image as cgImage with dimension.
-        let outputCGImage = context.createCGImage(myFilter!.outputImage!, fromRect: myFilter!.outputImage!.extent)
+        let outputCGImage = context.createCGImage(myFilter!.outputImage!, from: myFilter!.outputImage!.extent)
         
         // 6 - convert filtered CGImage to UIImage
-        let filteredImage = UIImage(CGImage: outputCGImage)
+        let filteredImage = UIImage(cgImage: outputCGImage!)
         
         // 7 - set filtered image to preview
         return filteredImage
@@ -193,13 +193,13 @@ class FiltersViewController: UIViewController, UICollectionViewDataSource, UICol
     
     
     // save imaage to photo gallery
-    private func saveImageToPhotoGallery(){
+    fileprivate func saveImageToPhotoGallery(){
         // Save image
         navigationController?.navigationBar.barTintColor = nil
         navigationController?.navigationBar.titleTextAttributes =  nil
         let baskViewController = self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - 2] as! TemplateViewController
         baskViewController.callbackImage(previewImageView.image!)
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
 
     }
 }

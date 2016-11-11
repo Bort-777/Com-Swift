@@ -17,7 +17,7 @@ class ComicsCollectionViewCell: UICollectionViewCell, UITextFieldDelegate
     @IBOutlet weak var numPagesLabel: UILabel!
     
     // data
-    private var currentBook: Book? {
+    fileprivate var currentBook: Book? {
         didSet {
             // init data if view
             if let firstPage = currentBook!.page.first
@@ -34,7 +34,7 @@ class ComicsCollectionViewCell: UICollectionViewCell, UITextFieldDelegate
 
     // MARK: - data functions
     
-    func setComics(comics: Book) {
+    func setComics(_ comics: Book) {
         self.currentBook = comics
     }
     
@@ -42,9 +42,9 @@ class ComicsCollectionViewCell: UICollectionViewCell, UITextFieldDelegate
         return self.currentBook!
     }
     
-    private func loadImage(id: Int) -> UIImage? {
+    fileprivate func loadImage(_ id: Int) -> UIImage? {
         let nameImage = String(id)
-        let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
+        let pathDocuments = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first!
         let readPath = "\(pathDocuments)/\(nameImage).jpg"
         let image    = UIImage(contentsOfFile: readPath)
         // Do whatever you want with the image
@@ -53,12 +53,12 @@ class ComicsCollectionViewCell: UICollectionViewCell, UITextFieldDelegate
     
     // MARK: - textField functions
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         // Realm transaction
         try! uiRealm.write({ () -> Void in
             self.currentBook!.name = textField.text!

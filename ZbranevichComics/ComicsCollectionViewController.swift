@@ -27,50 +27,50 @@ class ComicsCollectionViewController: UIViewController, UICollectionViewDataSour
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         navigationController?.setToolbarHidden(true, animated: true)
         readBooksAndUpdateUI()
     }
     
     func readBooksAndUpdateUI() {
-        books = uiRealm.objects(Book).sorted("id")
+        books = uiRealm.objects(Book).sorted(byProperty: "id")
         self.collectionView.reloadData()
     }
     
     // MARK: - picker view delegate and data source (books)
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         return books.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! ComicsCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ComicsCollectionViewCell
         
         cell.setComics(books[indexPath.row])
-        cell.deleteIcon.hidden = editModeEnabled ? false : true
-        cell.titleLabel.enabled = editModeEnabled ? true : false
+        cell.deleteIcon.isHidden = editModeEnabled ? false : true
+        cell.titleLabel.isEnabled = editModeEnabled ? true : false
         
         return cell
         
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         if !editModeEnabled {
-            self.performSegueWithIdentifier("showPages", sender: self)
+            self.performSegue(withIdentifier: "showPages", sender: self)
         }
     }
     
     // MARK: - segue delegate
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == "showPages" {
-            let indexPaths = self.collectionView!.indexPathsForSelectedItems()!
-            let indexPath = indexPaths[0] as NSIndexPath
-            let vc = segue.destinationViewController as! PagesCollectionViewController
+            let indexPaths = self.collectionView!.indexPathsForSelectedItems!
+            let indexPath = indexPaths[0] as IndexPath
+            let vc = segue.destination as! PagesCollectionViewController
             
             vc.currentBook = books[indexPath.row]
         }
@@ -78,15 +78,15 @@ class ComicsCollectionViewController: UIViewController, UICollectionViewDataSour
     
     // MARK: - edit books functions
     
-    @IBAction func addBook(sender: UIBarButtonItem) {
+    @IBAction func addBook(_ sender: UIBarButtonItem) {
         let saveString = NSLocalizedString("SAVE", comment: "save buttom")
         let cancelString = NSLocalizedString("CANCEL", comment: "cancel buttom")
         let titleString = NSLocalizedString("NEWCOMICS", comment: "newcomics text")
         let messageString = NSLocalizedString("NAMETHISCOMICS", comment: "newcomics text")
         let fieldString = NSLocalizedString("TITLE", comment: "title text")
         
-        let alertController = UIAlertController(title: titleString, message: messageString, preferredStyle: .Alert)
-        let confirmAction = UIAlertAction(title: saveString, style: .Default) { (_) in
+        let alertController = UIAlertController(title: titleString, message: messageString, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: saveString, style: .default) { (_) in
             if let field = alertController.textFields!.first {
                 // store your data
                 let newComics = Book()
@@ -105,40 +105,40 @@ class ComicsCollectionViewController: UIViewController, UICollectionViewDataSour
                 // user did not fill field
             }
         }
-        let cancelAction = UIAlertAction(title: cancelString, style: .Cancel) { (_) in }
+        let cancelAction = UIAlertAction(title: cancelString, style: .cancel) { (_) in }
         
-        alertController.addTextFieldWithConfigurationHandler { (textField) in
+        alertController.addTextField { (textField) in
             textField.placeholder = fieldString
         }
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
         alertController.view.setNeedsLayout()
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func editBook(sender: UIBarButtonItem) {
+    @IBAction func editBook(_ sender: UIBarButtonItem) {
         editModeEnabled = !editModeEnabled
         
         editButton.title = editModeEnabled ? NSLocalizedString("DONE", comment: "done buttom") : NSLocalizedString("EDIT", comment: "edit buttom")
-        editButton.style = editModeEnabled ? .Done : .Plain
+        editButton.style = editModeEnabled ? .done : .plain
         
-        for item in self.collectionView!.visibleCells() as! [ComicsCollectionViewCell] {
-            item.deleteIcon.hidden = editModeEnabled ? false : true
-            item.titleLabel.enabled = editModeEnabled ? true : false
+        for item in self.collectionView!.visibleCells as! [ComicsCollectionViewCell] {
+            item.deleteIcon.isHidden = editModeEnabled ? false : true
+            item.titleLabel.isEnabled = editModeEnabled ? true : false
         }
     }
     
-    @IBAction func deletePage(sender: UIButton) {
-        let point : CGPoint = sender.convertPoint(CGPointZero, toView:collectionView)
-        let indexPath = collectionView!.indexPathForItemAtPoint(point)
-        let cell = collectionView!.cellForItemAtIndexPath(indexPath!) as! ComicsCollectionViewCell
+    @IBAction func deletePage(_ sender: UIButton) {
+        let point : CGPoint = sender.convert(CGPoint.zero, to:collectionView)
+        let indexPath = collectionView!.indexPathForItem(at: point)
+        let cell = collectionView!.cellForItem(at: indexPath!) as! ComicsCollectionViewCell
         
         // realm transaction
         try! uiRealm.write({ () -> Void in
             uiRealm.delete(cell.getComics())
         })
         
-        collectionView.deleteItemsAtIndexPaths([indexPath!])
+        collectionView.deleteItems(at: [indexPath!])
     }
 }

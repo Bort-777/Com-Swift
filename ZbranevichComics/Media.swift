@@ -17,7 +17,7 @@ class Media: Object {
     dynamic var width : Float = 0.0
     dynamic var height : Float = 0.0
     
-    func setFrame(rect: CGRect) {
+    func setFrame(_ rect: CGRect) {
         self.x = Float(rect.minX)
         self.y = Float(rect.minY)
         self.width = Float(rect.width)
@@ -25,7 +25,7 @@ class Media: Object {
 
     }
     
-    func setLocalURL(id: Int) {
+    func setLocalURL(_ id: Int) {
         //TODO: save local
         self.id = id
     }

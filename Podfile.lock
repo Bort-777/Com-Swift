@@ -1,23 +1,23 @@
 PODS:
-  - Alamofire (3.4.1)
-  - Realm (1.0.1):
-    - Realm/Headers (= 1.0.1)
-  - Realm/Headers (1.0.1)
-  - RealmSwift (1.0.1):
-    - Realm (= 1.0.1)
-  - SwiftyDropbox (3.0.0):
-    - Alamofire (~> 3.1)
+  - Alamofire (4.0.1)
+  - Realm (2.0.3):
+    - Realm/Headers (= 2.0.3)
+  - Realm/Headers (2.0.3)
+  - RealmSwift (2.0.3):
+    - Realm (= 2.0.3)
+  - SwiftyDropbox (4.1.1):
+    - Alamofire (~> 4.0.1)
 
 DEPENDENCIES:
   - RealmSwift
   - SwiftyDropbox
 
 SPEC CHECKSUMS:
-  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
-  Realm: 2e15e39d35b08abb529e212ed5d8af107b5236c8
-  RealmSwift: d73ea2af08c3676dbdd5e4b669651a0f492162a4
-  SwiftyDropbox: e0d4aa3166082ec07ed942e94edb8c732b3376e4
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  Realm: 5f008bfe3c8c47142eddfc30b8c1584cde22db24
+  RealmSwift: 5afb451f65b682242f272dbb52d5c6f6e343c980
+  SwiftyDropbox: dfcd4d308d32d74729255b48833db61acdfb9c23
 
-PODFILE CHECKSUM: 07761c19ced3bea2d6e043561977c10e9c6c5ca8
+PODFILE CHECKSUM: 936d9f169cedf70d8825129637ffdaadc1590935
 
 COCOAPODS: 1.0.1

@@ -31,8 +31,8 @@ class Cloud: UIView, UITextFieldDelegate {
                 height: imageText!["height"] as! CGFloat
                 ))
             textF.text = imageText!["text"] as? String
-            textF.textColor = UIColor.blackColor()
-            textF.font = UIFont.systemFontOfSize(imageText!["height"] as! CGFloat)
+            textF.textColor = UIColor.black
+            textF.font = UIFont.systemFont(ofSize: imageText!["height"] as! CGFloat)
             textF.delegate = self
             self.addSubview(textF)
         }
@@ -54,12 +54,12 @@ class Cloud: UIView, UITextFieldDelegate {
     
     // MARK: - textField functions
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
 
         return true
     }

@@ -13,12 +13,12 @@ import AVFoundation
 class PageViewController: UIViewController {
     
     // frame for page
-    private var template = UIView()
+    fileprivate var template = UIView()
     
     // image on frame
     let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .ScaleAspectFit
+        iv.contentMode = .scaleAspectFit
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
@@ -47,7 +47,7 @@ class PageViewController: UIViewController {
     }
     
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         // get position on view
@@ -58,9 +58,9 @@ class PageViewController: UIViewController {
         
         // MARK: - Settings imagwView
         
-        template.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v0]|", options:
+        template.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options:
             NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
-        template.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v0]|", options:
+        template.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options:
             NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
         
         view.addSubview(template)
@@ -69,7 +69,7 @@ class PageViewController: UIViewController {
         
         for video in currentPage!.data
         {
-            let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
+            let pathDocuments = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first!
             let pathVideo = "\(pathDocuments)/\(video.id).MOV"
             let x = CGFloat(video.x)
             let y = CGFloat(video.y)
@@ -79,14 +79,14 @@ class PageViewController: UIViewController {
         }
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         template.removeFromSuperview()
         viewDidAppear(true)
     }
     
     // get template position
-    private func templatePosition() -> CGRect {
-        if UIDevice.currentDevice().orientation.isPortrait.boolValue {
+    fileprivate func templatePosition() -> CGRect {
+        if UIDevice.current.orientation.isPortrait {
             let x = CGFloat(0)
             let y = view.frame.midY - view.frame.midX
             let size = view.frame.size.width
@@ -103,9 +103,9 @@ class PageViewController: UIViewController {
     }
     
     // load image
-    private func loadImage(id: Int) -> UIImage? {
+    fileprivate func loadImage(_ id: Int) -> UIImage? {
         let imageName = String(id)
-        let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
+        let pathDocuments = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first!
         let readPath = "\(pathDocuments)/\(imageName).jpg"
         
         let image    = UIImage(contentsOfFile: readPath)
@@ -115,8 +115,8 @@ class PageViewController: UIViewController {
     
     // MARK: - Add video
     
-    private func addVideo(frame: CGRect, path: String) {
-        let player = AVPlayer(URL: NSURL(fileURLWithPath: path))
+    fileprivate func addVideo(_ frame: CGRect, path: String) {
+        let player = AVPlayer(url: URL(fileURLWithPath: path))
         let playerController = AVPlayerViewController()
         
         playerController.player = player

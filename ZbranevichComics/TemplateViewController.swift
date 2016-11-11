@@ -43,17 +43,17 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
         loadJSONTemplates()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         self.cloudCollection.delegate = self
         self.cloudCollection.dataSource = self
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == "chouseImage"
         {
-            let vc = segue.destinationViewController as! FiltersViewController
+            let vc = segue.destination as! FiltersViewController
             vc.selctedImage = curreImage
         }
     }
@@ -68,10 +68,10 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
     }
     
     func loadJSONTemplates() {
-        let url = NSBundle.mainBundle().URLForResource("Template", withExtension: "json")
-        let data = NSData(contentsOfURL: url!)
+        let url = Bundle.main.url(forResource: "Template", withExtension: "json")
+        let data = try? Data(contentsOf: url!)
         do {
-            let object = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+            let object = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
             if let dictionary = object as? [String: AnyObject] {
                 guard
                     let templates = dictionary["templates"] as? [[String: AnyObject]] else { print("err");return }
@@ -84,14 +84,14 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
     
     // MARK: collection view delegate function
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         return collectionItems!.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         for aa in cell.subviews {
             aa.removeFromSuperview()
         }
@@ -105,7 +105,7 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
         
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         if templateMode {
             // set template property
@@ -123,7 +123,7 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
             collectionView.reloadData()
 
             templateMode = !templateMode
-            saveButton.enabled = true
+            saveButton.isEnabled = true
             loadJSONCloud()
         }
         else {
@@ -151,10 +151,10 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
     
     // load json for cloud image
     func loadJSONCloud() {
-        let url = NSBundle.mainBundle().URLForResource("Sticker", withExtension: "json")
-        let data = NSData(contentsOfURL: url!)
+        let url = Bundle.main.url(forResource: "Sticker", withExtension: "json")
+        let data = try? Data(contentsOf: url!)
         do {
-            let object = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+            let object = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
             if let dictionary = object as? [String: AnyObject] {
                 guard
                     let templates = dictionary["clouds"] as? [[String: AnyObject]] else { print("err");return }
@@ -166,23 +166,23 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
     }
     
     // cloud delegate func
-    func panGestureDetected(sender: UIPanGestureRecognizer) {
-        let translation = sender.translationInView(self.templateContainer)
+    func panGestureDetected(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self.templateContainer)
         
         let newPoint = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
-        if self.templateContainer.pointInside(newPoint, withEvent: nil) {
+        if self.templateContainer.point(inside: newPoint, with: nil) {
             sender.view!.center = newPoint
         }
         else {
             sender.view?.removeFromSuperview()
         }
         
-        sender.setTranslation(CGPointZero, inView: self.templateContainer)
+        sender.setTranslation(CGPoint.zero, in: self.templateContainer)
     }
     
     //MARK: - create template
     
-    func createScrollView(dataOfView: [String: AnyObject]) {
+    func createScrollView(_ dataOfView: [String: AnyObject]) {
         // get data from json
         guard
         let dataX = dataOfView["x"] as? CGFloat,
@@ -217,15 +217,15 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
     
     // MARK: scroll zoom delegate function
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return scrollView.subviews.first! as UIView
     }
     
-    func scrollViewDidZoom(scrollView: UIScrollView) {
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
         centerScrollViewContents(scrollView, imageView: scrollView.subviews.first as! UIImageView)
     }
     
-    func centerScrollViewContents(scrollView: UIScrollView, imageView: UIView){
+    func centerScrollViewContents(_ scrollView: UIScrollView, imageView: UIView){
         let boundsSize = scrollView.bounds.size
         var contentsFrame = imageView.frame
         
@@ -248,7 +248,7 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
     
     // MARK: - insert in scroll functions
     
-    func insertImage(scrollView: UIScrollView, image: UIImage)
+    func insertImage(_ scrollView: UIScrollView, image: UIImage)
     {
         
         let imageView = scrollView.subviews.first as! UIImageView
@@ -261,11 +261,11 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
         let minScale = min(scaleHeight, scaleWidth)
         
         // set imageView property
-        imageView.frame = CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height)
-        imageView.contentMode = UIViewContentMode.Center
-        imageView.userInteractionEnabled = true
+        imageView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
+        imageView.contentMode = UIViewContentMode.center
+        imageView.isUserInteractionEnabled = true
         imageView.image = image
-        imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height)
+        imageView.frame = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
         
         // set scroll property
         scrollView.minimumZoomScale = minScale
@@ -283,40 +283,40 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
 
     }
     
-    func insertVideo(scrollView: UIScrollView, videoURL: NSURL)
+    func insertVideo(_ scrollView: UIScrollView, videoURL: URL)
     {
         // create screenshoot
         let imageView = scrollView.subviews.first as! UIImageView
         var uiImage = UIImage()
         do {
-            let asset = AVURLAsset(URL: videoURL, options: nil)
+            let asset = AVURLAsset(url: videoURL, options: nil)
             let imgGenerator = AVAssetImageGenerator(asset: asset)
-            let cgImage = try imgGenerator.copyCGImageAtTime(CMTimeMake(0, 1), actualTime: nil)
-            uiImage = UIImage(CGImage: cgImage)
+            let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
+            uiImage = UIImage(cgImage: cgImage)
             // lay out this image view, or if it already exists, set its image property to uiImage
         } catch let error as NSError {
             print("Error generating thumbnail: \(error)")
         }
         
         // set imageView property
-        imageView.frame = CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height)
-        imageView.contentMode = UIViewContentMode.ScaleAspectFit
-        imageView.userInteractionEnabled = true
+        imageView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
+        imageView.contentMode = UIViewContentMode.scaleAspectFit
+        imageView.isUserInteractionEnabled = true
         imageView.image = uiImage
         scrollView.minimumZoomScale = 1
         scrollView.zoomScale = 1
         
         // tag scroll
-        media[scrollView.tag - 1] = videoURL
+        media[scrollView.tag - 1] = videoURL as NSURL
     }
     
     //MARK: - Tapped functions
     
-    func imageTapped(img: UITapGestureRecognizer)
+    func imageTapped(_ img: UITapGestureRecognizer)
     {
-        let alertController = UIAlertController(title: NSLocalizedString("SETMEDIA", comment: "set media"), message: nil, preferredStyle: .ActionSheet)
-        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "set media"), style: .Cancel) { (action) in }
-        let photoAction = UIAlertAction(title: NSLocalizedString("LIBRARY", comment: "set media"), style: .Default) { (action) in
+        let alertController = UIAlertController(title: NSLocalizedString("SETMEDIA", comment: "set media"), message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("CANCEL", comment: "set media"), style: .cancel) { (action) in }
+        let photoAction = UIAlertAction(title: NSLocalizedString("LIBRARY", comment: "set media"), style: .default) { (action) in
             self.currPicker = (img.view as! UIImageView).superview as! UIScrollView
             self.showPhotoGallery()
         }
@@ -324,45 +324,45 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
         alertController.addAction(photoAction)
         alertController.addAction(cancelAction)
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     // Show photo gallery to choose image
-    private func showPhotoGallery() -> Void {
+    fileprivate func showPhotoGallery() -> Void {
         
          // show picker to select image form gallery
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum) {
             
             // create image picker
             let imagePicker = UIImagePickerController()
             
             // set image picker property
             imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
+            imagePicker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum
             imagePicker.mediaTypes = ["public.image", "public.movie"]
             imagePicker.allowsEditing = false
             
             
             // show image picker
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+            self.present(imagePicker, animated: true, completion: nil)
         }
     }
  
     // MARK: - UIImagePickerControllerDelegate Method
     
     var currPicker = UIScrollView()
-    private var curreImage = UIImage()
+    fileprivate var curreImage = UIImage()
     let imagePicker = UIImagePickerController()
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         // dismiss image picker controller
         let mediaType = info[UIImagePickerControllerMediaType] as! NSString
         
-        dismissViewControllerAnimated(true) {
+        dismiss(animated: true) {
             // 3
             if mediaType == kUTTypeMovie {
-                let contentURL = info[UIImagePickerControllerMediaURL] as! NSURL
+                let contentURL = info[UIImagePickerControllerMediaURL] as! URL
                 self.callbackVideo(contentURL)
                 
             }
@@ -370,17 +370,17 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
                 // if image selected the set in preview.
                 if let newImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
                     self.curreImage = newImage
-                    self.performSegueWithIdentifier("chouseImage", sender: self)
+                    self.performSegue(withIdentifier: "chouseImage", sender: self)
                 }
             }
         }
     }
     
-    func callbackImage(img: UIImage) {
+    func callbackImage(_ img: UIImage) {
         self.insertImage(currPicker, image: img)
     }
     
-    func callbackVideo(URL: NSURL) {
+    func callbackVideo(_ URL: Foundation.URL) {
         self.insertVideo(self.currPicker, videoURL: URL)
         
     }
@@ -388,11 +388,11 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
     
     //MARK: - Save page to Realm
     
-    let page = Page()
+    var page = Page()
     var comics = Book()
     
-    @IBAction func savePage(sender: AnyObject) {
-        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    @IBAction func savePage(_ sender: AnyObject) {
+        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activityIndicatorView.center = view.center
         self.view.addSubview(activityIndicatorView)
         activityIndicatorView.startAnimating()
@@ -408,7 +408,7 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
             page.id = Int(arc4random_uniform(600)+1)
         
             // Save image:
-            let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
+            let pathDocuments = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first!
             let pathImage = "\(pathDocuments)/\(page.id).jpg"
         
             templateContainer.saveImageFromView(path: pathImage)
@@ -424,7 +424,7 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
                     {
                         let video = Media()
                         video.setFrame(scroll.frame)
-                        video.setLocalURL(saveLocalVideo(media[scroll.tag - 1]))
+                        video.setLocalURL(saveLocalVideo(media[scroll.tag - 1] as URL))
                         page.data.append(video)
                     }
                     else {
@@ -434,31 +434,31 @@ class TemplateViewController: UIViewController, UIScrollViewDelegate, UIImagePic
             }
             comics.page.append(page)
         }
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
     }
     
     // moveing video to local folder
-    func saveLocalVideo (localPatch: NSURL) -> Int {
+    func saveLocalVideo (_ localPatch: URL) -> Int {
         let videoID =  Int(arc4random_uniform(600)+1)
-        let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
+        let pathDocuments = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first!
         let pathVideo = "\(pathDocuments)/\(videoID).MOV"
-        let videoData = NSData(contentsOfURL: localPatch)
+        let videoData = try? Data(contentsOf: localPatch)
         
-        videoData?.writeToFile(pathVideo, atomically: false)
+        try? videoData?.write(to: URL(fileURLWithPath: pathVideo), options: [])
         print(pathVideo)
         return videoID
     }
 }
 
 extension UIView {
-    func saveImageFromView(path path:String) {
+    func saveImageFromView(path:String) {
         
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, UIScreen.mainScreen().scale)
-        drawViewHierarchyInRect(self.bounds, afterScreenUpdates: true)
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, UIScreen.main.scale)
+        drawHierarchy(in: self.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        UIImageJPEGRepresentation(image, 0.4)?.writeToFile(path, atomically: true)
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        try? UIImageJPEGRepresentation(image!, 0.4)?.write(to: URL(fileURLWithPath: path), options: [.atomic])
+        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
         
     }}

@@ -21,13 +21,13 @@ class PagesCollectionViewCell: UICollectionViewCell
         }
     }
     
-    func setPage(page: Page) {
+    func setPage(_ page: Page) {
         self.currPage = page
     }
     
-    func loadImage(id: Int) -> UIImage? {
+    func loadImage(_ id: Int) -> UIImage? {
         let imageName = String(id)
-        let pathDocuments = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
+        let pathDocuments = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first!
         let readPath = "\(pathDocuments)/\(imageName).jpg"
         let image    = UIImage(contentsOfFile: readPath)
         
@@ -44,7 +44,7 @@ class PagesCollectionViewCell: UICollectionViewCell
             self.imageView!.alpha = isSelect ? 0.5 : 1.0
         }
     }
-    @IBAction func selectIcon(sender: AnyObject) {
+    @IBAction func selectIcon(_ sender: AnyObject) {
         isSelect = !isSelect
     }
     
@@ -52,12 +52,12 @@ class PagesCollectionViewCell: UICollectionViewCell
     
     var isMoving: Bool = false {
         didSet {
-            self.hidden = isMoving
+            self.isHidden = isMoving
         }
     }
     
     var snapshot: UIView {
-        let snapshot: UIView = self.snapshotViewAfterScreenUpdates(true)
+        let snapshot: UIView = self.snapshotView(afterScreenUpdates: true)!
         let layer: CALayer = snapshot.layer
         layer.masksToBounds = false
         layer.shadowRadius = 4.0
@@ -77,8 +77,8 @@ class PagesCollectionViewCell: UICollectionViewCell
         shakeAnim.autoreverses = true
         let startAngle: Float = (-2) * 3.14159/180
         let stopAngle = -startAngle
-        shakeAnim.fromValue = NSNumber(float: startAngle)
-        shakeAnim.toValue = NSNumber(float: 3 * stopAngle)
+        shakeAnim.fromValue = NSNumber(value: startAngle as Float)
+        shakeAnim.toValue = NSNumber(value: 3 * stopAngle as Float)
         shakeAnim.autoreverses = true
         shakeAnim.duration = 0.2
         shakeAnim.repeatCount = 10000
@@ -86,12 +86,12 @@ class PagesCollectionViewCell: UICollectionViewCell
         
         //Create layer, then add animation to the element's layer
         let layer: CALayer = self.layer
-        layer.addAnimation(shakeAnim, forKey:"shaking")
+        layer.add(shakeAnim, forKey:"shaking")
     }
     
     // This function stop shaking the collection view cells
     func stopShakingIcons() {
         let layer: CALayer = self.layer
-        layer.removeAnimationForKey("shaking")
+        layer.removeAnimation(forKey: "shaking")
     }
 }

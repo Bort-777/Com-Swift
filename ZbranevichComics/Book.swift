@@ -13,7 +13,7 @@ class Book: Object {
     
     dynamic var id : Int = 0
     dynamic var name : String = ""
-    let page = List<Page>()
+    var page = List<Page>()
     
     override static func primaryKey() -> String? {
         return "id"
